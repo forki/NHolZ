@@ -2,6 +2,7 @@
 [![Issue Stats](http://issuestats.com/github/domasin/NHolZ/badge/pr)](http://issuestats.com/github/domasin/NHolZ)
 
 # NHolZ
+### A porting in F# of the "[Original OCaml version of HOL Zero](http://www.proof-technologies.com/holzero/)" by Mark Adams ###
 
 HOL Zero e' un dimostratore di teoremi, cioe' un programma che supporta la dimostrazione 
 formale di teoremi e lo sviluppo di teorie nella logica HOL. Come l'autore evidenzia, si 
