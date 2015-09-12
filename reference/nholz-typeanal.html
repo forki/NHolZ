@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>TypeAnal - NHolZ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Domenico Masini"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="/NHolZ/content/style.css" />
+    <script type="text/javascript" src="/NHolZ/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://github.com/domasin/NHolZ">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/NHolZ/index.html">NHolZ</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>TypeAnal</h1>
+<p>
+  <span>Namespace: NHolZ</span><br />
+</p>
+<div class="xmldoc">
+<p>This module defines type analysis routines for pretypes and preterms, used
+in parsing and printing type/term quotations.  The primary routines are <br />
+detyping, type unification, type inference and type consistency check.  <br />
+This module is used in the implementation of the pretty printer, and is a 
+trusted component of the system.</p>
+
+
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+  <h2>Nested types and modules</h2>
+  <div>
+      <table class="table table-bordered type-list">
+    <thead>
+      <tr><td>Type</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td class="type-name">
+            <a href="nholz-typeanal-varenv.html">varenv</a>
+          </td>
+          <td class="xmldoc"></td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+  <h3>Functions and values</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Function or value</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1104', 1104)" onmouseover="showTip(event, '1104', 1104)">
+            annot_error 
+          </code>
+          <div class="tip" id="1104">
+            <strong>Signature:</strong> string * string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1105', 1105)" onmouseover="showTip(event, '1105', 1105)">
+            arity_error (x, n1, n2)
+          </code>
+          <div class="tip" id="1105">
+            <strong>Signature:</strong> (x:string * n1:big_int * n2:big_int) -&gt; string * string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1106', 1106)" onmouseover="showTip(event, '1106', 1106)">
+            basic_unify_pretypes (pty1, pty2)
+          </code>
+          <div class="tip" id="1106">
+            <strong>Signature:</strong> (pty1:pretype * pty2:pretype) -&gt; (pretype * pretype) list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>This takes two pretypes and returns an old-to-new instn list for generated
+tyvars, calculated by comparing corresponding subcomponents of the      <br />
+pretypes.  This instn list is not necessarily closed (i.e. it may need to 
+be applied repeatedly until it makes no change) and may contain         <br />
+inconsistencies when when the two pretypes cannot be unified (instead of<br />
+failing).  These are dealt with by instantiation closure (see below).</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1107', 1107)" onmouseover="showTip(event, '1107', 1107)">
+            check_preterm_annotations tm ptm
+          </code>
+          <div class="tip" id="1107">
+            <strong>Signature:</strong> tm:term -&gt; ptm:preterm -&gt; preterm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1108', 1108)" onmouseover="showTip(event, '1108', 1108)">
+            check_pretype pty
+          </code>
+          <div class="tip" id="1108">
+            <strong>Signature:</strong> pty:pretype -&gt; pretype<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1109', 1109)" onmouseover="showTip(event, '1109', 1109)">
+            close_all_names (theta, venv)
+          </code>
+          <div class="tip" id="1109">
+            <strong>Signature:</strong> (theta:(pretype * pretype) list * venv:(string * pretype list) list) -&gt; (pretype * pretype) list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1110', 1110)" onmouseover="showTip(event, '1110', 1110)">
+            close_name (x, pty) (theta, venv)
+          </code>
+          <div class="tip" id="1110">
+            <strong>Signature:</strong> (x:string * pty:pretype) -&gt; (theta:(pretype * pretype) list * venv:(string * pretype list) list) -&gt; (pretype * pretype) list * varenv<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1111', 1111)" onmouseover="showTip(event, '1111', 1111)">
+            close_name0 venv x theta
+          </code>
+          <div class="tip" id="1111">
+            <strong>Signature:</strong> venv:(string * pretype list) list -&gt; x:string -&gt; theta:(pretype * pretype) list -&gt; (pretype * pretype) list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1112', 1112)" onmouseover="showTip(event, '1112', 1112)">
+            detype_preterm ptm
+          </code>
+          <div class="tip" id="1112">
+            <strong>Signature:</strong> ptm:preterm -&gt; preterm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1113', 1113)" onmouseover="showTip(event, '1113', 1113)">
+            detype_preterm0 ptm
+          </code>
+          <div class="tip" id="1113">
+            <strong>Signature:</strong> ptm:preterm -&gt; preterm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1114', 1114)" onmouseover="showTip(event, '1114', 1114)">
+            fun_error1 
+          </code>
+          <div class="tip" id="1114">
+            <strong>Signature:</strong> string * string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1115', 1115)" onmouseover="showTip(event, '1115', 1115)">
+            fun_error2 
+          </code>
+          <div class="tip" id="1115">
+            <strong>Signature:</strong> string * string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1116', 1116)" onmouseover="showTip(event, '1116', 1116)">
+            generate_const_preterm x
+          </code>
+          <div class="tip" id="1116">
+            <strong>Signature:</strong> x:string -&gt; preterm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1117', 1117)" onmouseover="showTip(event, '1117', 1117)">
+            generate_var_preterm x
+          </code>
+          <div class="tip" id="1117">
+            <strong>Signature:</strong> x:string -&gt; preterm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1118', 1118)" onmouseover="showTip(event, '1118', 1118)">
+            infer_pretypes ptm
+          </code>
+          <div class="tip" id="1118">
+            <strong>Signature:</strong> ptm:preterm -&gt; (pretype * pretype) list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1119', 1119)" onmouseover="showTip(event, '1119', 1119)">
+            infer_pretypes0 ptm
+          </code>
+          <div class="tip" id="1119">
+            <strong>Signature:</strong> ptm:preterm -&gt; pretype * (pretype * pretype) list * (string * pretype list) list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1120', 1120)" onmouseover="showTip(event, '1120', 1120)">
+            new_pretype_gvar ()
+          </code>
+          <div class="tip" id="1120">
+            <strong>Signature:</strong> unit -&gt; pretype<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1121', 1121)" onmouseover="showTip(event, '1121', 1121)">
+            overload_error x
+          </code>
+          <div class="tip" id="1121">
+            <strong>Signature:</strong> x:string -&gt; string * string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1122', 1122)" onmouseover="showTip(event, '1122', 1122)">
+            pretype_gvar_counter 
+          </code>
+          <div class="tip" id="1122">
+            <strong>Signature:</strong> int ref<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1123', 1123)" onmouseover="showTip(event, '1123', 1123)">
+            pretype_ok pty
+          </code>
+          <div class="tip" id="1123">
+            <strong>Signature:</strong> pty:pretype -&gt; bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Checks that the supplied pretype is well-formed, by checking that all
+compound types have the correct arity for the type constant involved.   <br />
+This gets used on stand-alone type quotations and on types embedded as  <br />
+type annotations in term quotations.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1124', 1124)" onmouseover="showTip(event, '1124', 1124)">
+            reset_pretype_gvar_counter ()
+          </code>
+          <div class="tip" id="1124">
+            <strong>Signature:</strong> unit -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1125', 1125)" onmouseover="showTip(event, '1125', 1125)">
+            resolve_preterm ptm
+          </code>
+          <div class="tip" id="1125">
+            <strong>Signature:</strong> ptm:preterm -&gt; preterm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Replaces the generated tyvars in the supplied preterm with
+their most general valid pretypes, deduced from type inference.  Note that
+the preterm input is assumed to have been detyped.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1126', 1126)" onmouseover="showTip(event, '1126', 1126)">
+            theta_closure theta0 theta
+          </code>
+          <div class="tip" id="1126">
+            <strong>Signature:</strong> theta0:(pretype * pretype) list -&gt; theta:(pretype * pretype) list -&gt; (pretype * pretype) list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Takes an existing closed pretype instn list 'theta0' and a 
+second (not necessarily closed or consistent) pretype instn list 'theta',
+and incorporates 'theta' into 'theta0', resulting in either a new closed 
+instn list or failure (if inconsistencies exist in 'theta' wrt 'theta0').</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1127', 1127)" onmouseover="showTip(event, '1127', 1127)">
+            theta_inst theta0 theta
+          </code>
+          <div class="tip" id="1127">
+            <strong>Signature:</strong> theta0:(pretype * pretype) list -&gt; theta:(&#39;?7412 * pretype) list -&gt; (&#39;?7412 * pretype) list<br />
+                          <strong>Type parameters:</strong> '?7412          </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1128', 1128)" onmouseover="showTip(event, '1128', 1128)">
+            type_err msg
+          </code>
+          <div class="tip" id="1128">
+            <strong>Signature:</strong> msg:string -&gt; &#39;?7392<br />
+                          <strong>Type parameters:</strong> '?7392          </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1129', 1129)" onmouseover="showTip(event, '1129', 1129)">
+            type_fail_info msg
+          </code>
+          <div class="tip" id="1129">
+            <strong>Signature:</strong> msg:&#39;?7394 -&gt; string * &#39;?7394<br />
+                          <strong>Type parameters:</strong> '?7394          </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1130', 1130)" onmouseover="showTip(event, '1130', 1130)">
+            types_error 
+          </code>
+          <div class="tip" id="1130">
+            <strong>Signature:</strong> string * string<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1131', 1131)" onmouseover="showTip(event, '1131', 1131)">
+            unify_pretype_list theta0 ptys
+          </code>
+          <div class="tip" id="1131">
+            <strong>Signature:</strong> theta0:(pretype * pretype) list -&gt; ptys:pretype list -&gt; (pretype * pretype) list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Unifies all pretypes in the supplied list with each other, <br />
+incorporating the result into existing closed instn list 'theta0'.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1132', 1132)" onmouseover="showTip(event, '1132', 1132)">
+            unify_pretype_pairs theta0 ptyptys
+          </code>
+          <div class="tip" id="1132">
+            <strong>Signature:</strong> theta0:(pretype * pretype) list -&gt; ptyptys:(pretype * pretype) list -&gt; (pretype * pretype) list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Unifies the left pretype with the right pretype of each pair in the
+supplied list, incorporating all the results into existing closed instn 
+list 'theta0'.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1133', 1133)" onmouseover="showTip(event, '1133', 1133)">
+            unify_pretypes (pty1, pty2)
+          </code>
+          <div class="tip" id="1133">
+            <strong>Signature:</strong> (pty1:pretype * pty2:pretype) -&gt; (pretype * pretype) list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1134', 1134)" onmouseover="showTip(event, '1134', 1134)">
+            unify_pretypes0 theta0 (pty1, pty2)
+          </code>
+          <div class="tip" id="1134">
+            <strong>Signature:</strong> theta0:(pretype * pretype) list -&gt; (pty1:pretype * pty2:pretype) -&gt; (pretype * pretype) list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Unifies any generated tyvars in input pretypes 'pty1' and 'pty2', to 
+result in either a closed pretype instn list for making them equal, or  <br />
+failure (when the pretypes cannot be unified).  In 'unify_pretypes0', the 
+unification is carried out wrt input pretype instn list 'theta0', and the 
+result incorporates 'theta0' (but with its range instantiated according to
+the unification).  Note that 'theta0' is assumed to be closed.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1135', 1135)" onmouseover="showTip(event, '1135', 1135)">
+            varenv_inst theta venv
+          </code>
+          <div class="tip" id="1135">
+            <strong>Signature:</strong> theta:(pretype * pretype) list -&gt; venv:varenv -&gt; varenv<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1136', 1136)" onmouseover="showTip(event, '1136', 1136)">
+            varenv_subtract venv (x, pty)
+          </code>
+          <div class="tip" id="1136">
+            <strong>Signature:</strong> venv:varenv -&gt; (x:string * pty:pretype) -&gt; varenv<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1137', 1137)" onmouseover="showTip(event, '1137', 1137)">
+            varenv_union venv1 venv2
+          </code>
+          <div class="tip" id="1137">
+            <strong>Signature:</strong> venv1:varenv -&gt; venv2:varenv -&gt; varenv<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <img src="/NHolZ/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">NHolZ</li>
+            <li><a href="/NHolZ/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/NHolZ">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/domasin/NHolZ">Source Code on GitHub</a></li>
+            <li><a href="/NHolZ/license.html">License</a></li>
+            <li><a href="/NHolZ/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/NHolZ/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/NHolZ/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/domasin/NHolZ"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

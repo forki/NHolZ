@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Term - NHolZ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Domenico Masini"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="/NHolZ/content/style.css" />
+    <script type="text/javascript" src="/NHolZ/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://github.com/domasin/NHolZ">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/NHolZ/index.html">NHolZ</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>Term</h1>
+<p>
+  <span>Namespace: NHolZ</span><br />
+</p>
+<div class="xmldoc">
+<p>This module defines the internal representation of HOL terms.  This is  <br />
+done by defining an abstract datatype for terms, and then primitive syntax
+functions for constructing and destructing terms, and support for constant
+declaration.  The primitive syntax constructors ensure that only well-  <br />
+formed terms can be constructed.  This module is a trusted component of <br />
+the system.</p>
+
+
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+  <h2>Nested types and modules</h2>
+  <div>
+      <table class="table table-bordered type-list">
+    <thead>
+      <tr><td>Type</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td class="type-name">
+            <a href="nholz-term-term.html">term</a>
+          </td>
+          <td class="xmldoc"><p>This is the datatype for internal HOL terms.  It has 4 classes,        <br />
+corresponding to the 4 primitive syntactic categories of term:</p>
+
+<p>Variable - This denotes an occurrence of a variable.  It has name and<br />
+type attributes.  Any two occurrences of variables within a given object
+refer the same entity iff they have the same name, type and scope.</p>
+
+<p>Constant - This denotes an occurrence of a constant.  It has name and<br />
+type attributes, where the name must be a declared constant's name and<br />
+the type must match the declared constant's generic type.</p>
+
+<p>Function Application - This consists of a function subterm and an    <br />
+argument subterm, where the function's type must be a function type with
+domain type equal to the argument's type.</p>
+
+<p>Lambda Astraction - This consists of a binding variable and a body   <br />
+subterm.  It bounds the scope of the binding variable to the body, and<br />
+this is the only primitive means of bounding variable scope.</p>
+
+
+</td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+  <h3>Functions and values</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Function or value</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1030', 1030)" onmouseover="showTip(event, '1030', 1030)">
+            dest_abs tm
+          </code>
+          <div class="tip" id="1030">
+            <strong>Signature:</strong> tm:term -&gt; term * term<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Takes a lambda abstraction term and returns its component terms.
+Fails if the supplied term is not a lambda abstraction.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1031', 1031)" onmouseover="showTip(event, '1031', 1031)">
+            dest_comb tm
+          </code>
+          <div class="tip" id="1031">
+            <strong>Signature:</strong> tm:term -&gt; term * term<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Takes a function application term and returns its component terms.
+Fails if the spupplied term is not a function application.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1032', 1032)" onmouseover="showTip(event, '1032', 1032)">
+            dest_const tm
+          </code>
+          <div class="tip" id="1032">
+            <strong>Signature:</strong> tm:term -&gt; string * hol_type<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Takes a constant term and returns its name and type.
+Fails if the supplied term is not a constant.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1033', 1033)" onmouseover="showTip(event, '1033', 1033)">
+            dest_var tm
+          </code>
+          <div class="tip" id="1033">
+            <strong>Signature:</strong> tm:term -&gt; string * hol_type<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Takes a variable term and returns its name and type.
+Fails if the supplied term is not a variable.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1034', 1034)" onmouseover="showTip(event, '1034', 1034)">
+            get_all_consts ()
+          </code>
+          <div class="tip" id="1034">
+            <strong>Signature:</strong> unit -&gt; (string * hol_type) list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the name and generic type of each declared constant.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1035', 1035)" onmouseover="showTip(event, '1035', 1035)">
+            get_const_gtype x
+          </code>
+          <div class="tip" id="1035">
+            <strong>Signature:</strong> x:string -&gt; hol_type<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the generic type of the constant with the supplied name. 
+Fails if the costant has not been declared</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1036', 1036)" onmouseover="showTip(event, '1036', 1036)">
+            is_abs tm
+          </code>
+          <div class="tip" id="1036">
+            <strong>Signature:</strong> tm:term -&gt; bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Checks if a term is a function application term.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1037', 1037)" onmouseover="showTip(event, '1037', 1037)">
+            is_comb tm
+          </code>
+          <div class="tip" id="1037">
+            <strong>Signature:</strong> tm:term -&gt; bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Checks if a term is a function application term.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1038', 1038)" onmouseover="showTip(event, '1038', 1038)">
+            is_const tm
+          </code>
+          <div class="tip" id="1038">
+            <strong>Signature:</strong> tm:term -&gt; bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Checks if a term is a constant term</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1039', 1039)" onmouseover="showTip(event, '1039', 1039)">
+            is_const_name x
+          </code>
+          <div class="tip" id="1039">
+            <strong>Signature:</strong> x:string -&gt; bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>The test for whether a given name is the name of a declared constant.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1040', 1040)" onmouseover="showTip(event, '1040', 1040)">
+            is_var tm
+          </code>
+          <div class="tip" id="1040">
+            <strong>Signature:</strong> tm:term -&gt; bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Checks if a term is a variable term</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1041', 1041)" onmouseover="showTip(event, '1041', 1041)">
+            mk_abs (v, tm0)
+          </code>
+          <div class="tip" id="1041">
+            <strong>Signature:</strong> (v:term * tm0:term) -&gt; term<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>The primitive constructor for lambda abstraction checks that the supplied
+binding variable is indeed a variable. Fails if the first term is not 
+a variable term</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1042', 1042)" onmouseover="showTip(event, '1042', 1042)">
+            mk_comb (tm1, tm2)
+          </code>
+          <div class="tip" id="1042">
+            <strong>Signature:</strong> (tm1:term * tm2:term) -&gt; term<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>The primitive constructor for function application checks that the type of 
+the supplied function term is a function type with a domain type equal to<br />
+the type of the argument term.</p>
+
+<p>Fails if the first term is not a function or if the domain of the function 
+is not equal to the argument type.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1043', 1043)" onmouseover="showTip(event, '1043', 1043)">
+            mk_gconst x
+          </code>
+          <div class="tip" id="1043">
+            <strong>Signature:</strong> x:string -&gt; term<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Takes a constant name that has already been declared and returns a constant 
+term. Fails if the supplied constant name has not been declared.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1044', 1044)" onmouseover="showTip(event, '1044', 1044)">
+            mk_iconst (x, tytheta)
+          </code>
+          <div class="tip" id="1044">
+            <strong>Signature:</strong> (x:string * tytheta:(hol_type * hol_type) list) -&gt; term<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Takes a constant name and an old-to-new tyvar instantiation list, and 
+returns the constant term with its generic type's tyvars instantiated
+accordingly.</p>
+
+<p>Note that the instantiation domain is allowed to contain
+tyvars that are not in the generic type: these are just ignored.</p>
+
+<p>Fails if the constant has not been declared.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1045', 1045)" onmouseover="showTip(event, '1045', 1045)">
+            mk_var (x, ty)
+          </code>
+          <div class="tip" id="1045">
+            <strong>Signature:</strong> (x:string * ty:hol_type) -&gt; term<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Takes a name and a type , with no restrictions on these arguments: any name 
+can be used for a variable, including the name of a declared constant.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1046', 1046)" onmouseover="showTip(event, '1046', 1046)">
+            prim_new_const (x, ty)
+          </code>
+          <div class="tip" id="1046">
+            <strong>Signature:</strong> (x:string * ty:hol_type) -&gt; unit<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>This is the primitive declaration command for constants.  It takes a    <br />
+string and a type: the string becomes the name of a new constant in the<br />
+theory, and the type becomes its generic type.</p>
+
+<p>Any name can be used for a constant, but supplying an existing constant's name 
+will cause failure.</p>
+
+<p>A note of the declaration is reported, and unit is returned.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1047', 1047)" onmouseover="showTip(event, '1047', 1047)">
+            term_eq x y
+          </code>
+          <div class="tip" id="1047">
+            <strong>Signature:</strong> x:term -&gt; y:term -&gt; bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1048', 1048)" onmouseover="showTip(event, '1048', 1048)">
+            term_lt x y
+          </code>
+          <div class="tip" id="1048">
+            <strong>Signature:</strong> x:term -&gt; y:term -&gt; bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1049', 1049)" onmouseover="showTip(event, '1049', 1049)">
+            the_consts 
+          </code>
+          <div class="tip" id="1049">
+            <strong>Signature:</strong> dltree&lt;string,hol_type&gt; ref<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1050', 1050)" onmouseover="showTip(event, '1050', 1050)">
+            type_of tm
+          </code>
+          <div class="tip" id="1050">
+            <strong>Signature:</strong> tm:term -&gt; hol_type<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>A term's type is calculated ultimately from the types of its constituent 
+atoms.  Although potentially a derived utility, it is defined as a     <br />
+primitive for use in 'mk_comb'.</p>
+
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <img src="/NHolZ/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">NHolZ</li>
+            <li><a href="/NHolZ/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/NHolZ">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/domasin/NHolZ">Source Code on GitHub</a></li>
+            <li><a href="/NHolZ/license.html">License</a></li>
+            <li><a href="/NHolZ/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/NHolZ/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/NHolZ/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/domasin/NHolZ"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

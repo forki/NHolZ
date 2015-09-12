@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Introduzione a HOL
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="A porting in F# of the "Original OCaml version of HOL Zero" by Mark Adams"/>
+    <meta name="author" content="Domenico Masini"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="/NHolZ/content/style.css" />
+    <script type="text/javascript" src="/NHolZ/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://github.com/domasin/NHolZ">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/NHolZ/index.html">NHolZ</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="Introduzione-a-HOL" class="anchor" href="#Introduzione-a-HOL">Introduzione a HOL</a></h1>
+
+<p>I sistemi <em>HOL</em> sono sviluppati per supportare la dimostrazione interattiva di teoremi 
+in una logica di ordine superiore (da qui l'acronimo <em>HOL</em> che sta per Higher Order 
+Logic). Per questo scopo, la logica formale e' interfacciata a un linguaggio di programmazione 
+di scopo generale. Tradizionalmente il linguaggio utilizzato a questo scopo e' uno dei<br />
+lingaggi della famiglia ML (che sta appunto per meta-linguaggio) come SML, OCaml, ecc. 
+In particolare HOL Zero da cui deriva NHolZ e' sviluppato in OCaml che puo' essere tranquillamente 
+chiamato il papa' di F# (mentre l'SML ne e' il nonno volendo mantenere questa metafora 
+famigliare). Attraverso il linguaggio di programmazione in cui il sistem e' sviluppato e' 
+possibile denotare i termini e i teoremi della logica formale, e svilupparne le teorie.</p>
+
+<p>La logica formale di HOL Zero e' una logica predicativa tipizzata, classica, di ordine superiore, 
+cioe' una logica predicativa con un sistema di tipi, con la legge del terzo escluso come teorema, 
+e con la possibilita' di quantificare su funzioni. E' basata sul lambda calcolo tipizzato di 
+Alonzo Church (teoria semplice dei tipi) che e' stato originariamente sviluppato come un fondamento 
+per la matematica (A. Church. A formulation of the simple theory of types. <em>Journal of Symbolic 
+Logic</em>, 5:56-68, 1940). La principale area di applicazione di HOL fu intesa inizalmente per la 
+specifica e la verifica di sistemi hardware, tuttavia nel corso del tempo HOL e' stato applicato 
+in molte altre aree.</p>
+
+<h2><a name="La-storia-dei-sistemi-HOL" class="anchor" href="#La-storia-dei-sistemi-HOL">La storia dei sistemi HOL</a></h2>
+
+<p>L'approccio alla meccanizzazione delle dimostrazioni formali usato dai sistemi HOL e' dovuto a 
+Robin Milner (R. Milner M. Gordon and C. P. Wadsworth. <em>Edinburgh LCF: A Mechanised Logic
+of Computation, volume 78 of Lecture Notes in Computer Science</em>. Springer-Verlag,
+1979.) che e' anche stato il capo del team che ha sviluppato e implementato il linguaggio ML. 
+Quel lavoro fu centrato su un sistema chiamato LCF (logic for computable functions: logica per 
+funzioni computabili), che fu inteso per il ragionamento interattivo automatico su funzioni di 
+ordine superiore definite ricorsivamente. L'interfacciamento alla logica del meta-linguaggio fu 
+resa esplicita, usando la struttura di tipi dell'ML, con l'intenzione di provare successivamente 
+altre logiche al posto di quella originaria. I sistemi HOL sono discendenti di LCF e cosi' soddisfano 
+questa intenzione originaria di applicare la metodologia LCF ad altre logiche.</p>
+
+<p>L'LCF originario fu sviluppato ad Edinburgo nei primi anni 1970, e oggi ci si riferisce ad esso 
+come all'<em>Edinburgh LFC</em>. Fu sviluppato inizialmente in Lisp. Il suo codice fu portato dallo Stanford 
+Lisp al Franz Lisp da Gerard Huet presso l'INRIA, e fu usato in un progetto di ricerca Francese 
+chiamato <em>Formel</em>. La versione Franz Lisp dell'LCF di Huet fu ulteriormente sviluppata a Cambridge 
+da Larry Paulson, e divenne conosciuta come il <em>Cambridge LCF</em>. Il primo sistema <em>HOL</em> propriamente 
+detto fu implementato sulla base di una prima versione del Cambridge LCF e conseguentemente eredito' 
+molte delle caratteristiche di entrambi l'Edinburgh e il Cambridge LCF. Per esempio, l'assiomatizzazione 
+della logica di ordine superiore non e' quella classica dovuta a Church, ma una formulazione 
+equivalente influenzata da LCF.</p>
+
+<p>Una versione ampliata e razionalizzata di HOL, chiamata HOL88, fu rilasciata (nel 1988), dopo che il 
+sistema HOL originario era stato in uso per molti anni. HOL90 (rilasciato nel 1990) e' stato un porting 
+di HOL88 in SML (R. Milner, M. Tofte, and R. Harper. <em>The Definition of Standard ML</em>. MIT Press,
+1990.) da parte di Konrad Slind.</p>
+
+
+        </div>
+        <div class="span3">
+          <img src="/NHolZ/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">NHolZ</li>
+            <li><a href="/NHolZ/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/NHolZ">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/domasin/NHolZ">Source Code on GitHub</a></li>
+            <li><a href="/NHolZ/license.html">License</a></li>
+            <li><a href="/NHolZ/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/NHolZ/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/NHolZ/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/domasin/NHolZ"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

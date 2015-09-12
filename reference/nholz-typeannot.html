@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>TypeAnnot - NHolZ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Domenico Masini"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="/NHolZ/content/style.css" />
+    <script type="text/javascript" src="/NHolZ/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://github.com/domasin/NHolZ">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/NHolZ/index.html">NHolZ</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>TypeAnnot</h1>
+<p>
+  <span>Namespace: NHolZ</span><br />
+</p>
+<div class="xmldoc">
+<p>This module defines type analysis routines for pretypes and preterms, used
+in parsing and printing type/term quotations.  The primary routines are <br />
+detyping, type unification, type inference and type consistency check.  <br />
+This module is used in the implementation of the pretty printer, and is a 
+trusted component of the system.</p>
+
+
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+
+  <h3>Functions and values</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Function or value</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1138', 1138)" onmouseover="showTip(event, '1138', 1138)">
+            annotate_preterm_atoms thetaC atms ptm
+          </code>
+          <div class="tip" id="1138">
+            <strong>Signature:</strong> thetaC:(pretype * pretype) list -&gt; atms:preterm list -&gt; ptm:preterm -&gt; preterm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>This function transforms preterm 'ptm' by adding type annotations for  <br />
+atoms from 'atms' with types looked up from instn list 'thetaC'.  Note <br />
+that the preterm will already have been detyped, and that the resulting<br />
+generated tyvars remain in the preterm until now, and so each atom in the
+atom list uniquely identifies a specific atom within the preterm.  The <br />
+resulting type-annotated preterm also has its original generated tyvars<br />
+from detyping, but the added type annotations on atoms give all the    <br />
+information required to remove ambiguity in the printed quotation.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1139', 1139)" onmouseover="showTip(event, '1139', 1139)">
+            atom_info thetaC ptm
+          </code>
+          <div class="tip" id="1139">
+            <strong>Signature:</strong> thetaC:(pretype * pretype) list -&gt; ptm:preterm -&gt; preterm list * preterm list * preterm list * preterm list * (pretype * pretype) list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1140', 1140)" onmouseover="showTip(event, '1140', 1140)">
+            atom_info0 thetaC ptm
+          </code>
+          <div class="tip" id="1140">
+            <strong>Signature:</strong> thetaC:(pretype * pretype) list -&gt; ptm:preterm -&gt; preterm list * preterm list * preterm list * preterm list * pretype * (pretype * pretype) list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1141', 1141)" onmouseover="showTip(event, '1141', 1141)">
+            atom_type_complexity ptm
+          </code>
+          <div class="tip" id="1141">
+            <strong>Signature:</strong> ptm:preterm -&gt; int<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1142', 1142)" onmouseover="showTip(event, '1142', 1142)">
+            closure_info (thetaC, theta0) fvs v
+          </code>
+          <div class="tip" id="1142">
+            <strong>Signature:</strong> (thetaC:(pretype * pretype) list * theta0:(pretype * pretype) list) -&gt; fvs:preterm list -&gt; v:preterm -&gt; preterm list * preterm list * (pretype * pretype) list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1143', 1143)" onmouseover="showTip(event, '1143', 1143)">
+            domain_restrict xs xys
+          </code>
+          <div class="tip" id="1143">
+            <strong>Signature:</strong> xs:&#39;?7372 list -&gt; xys:(&#39;?7372 * &#39;?7373) list -&gt; (&#39;?7372 * &#39;?7373) list<br />
+                          <strong>Type parameters:</strong> '?7372, '?7373          </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1144', 1144)" onmouseover="showTip(event, '1144', 1144)">
+            full_annotate_preterm fl ptm
+          </code>
+          <div class="tip" id="1144">
+            <strong>Signature:</strong> fl:bool -&gt; ptm:preterm -&gt; preterm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1145', 1145)" onmouseover="showTip(event, '1145', 1145)">
+            min_annotate_preterm pty_ ptm
+          </code>
+          <div class="tip" id="1145">
+            <strong>Signature:</strong> pty_:pretype option -&gt; ptm:preterm -&gt; preterm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1146', 1146)" onmouseover="showTip(event, '1146', 1146)">
+            ordered_unresolved_atoms atms
+          </code>
+          <div class="tip" id="1146">
+            <strong>Signature:</strong> atms:preterm list -&gt; preterm list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1147', 1147)" onmouseover="showTip(event, '1147', 1147)">
+            pick_atom_coverage thetaC pty_ ptm
+          </code>
+          <div class="tip" id="1147">
+            <strong>Signature:</strong> thetaC:(pretype * pretype) list -&gt; pty_:pretype option -&gt; ptm:preterm -&gt; preterm list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1148', 1148)" onmouseover="showTip(event, '1148', 1148)">
+            preterm_var ptm
+          </code>
+          <div class="tip" id="1148">
+            <strong>Signature:</strong> ptm:preterm -&gt; preterm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1149', 1149)" onmouseover="showTip(event, '1149', 1149)">
+            sift_atoms gtys0 atms
+          </code>
+          <div class="tip" id="1149">
+            <strong>Signature:</strong> gtys0:pretype list -&gt; atms:preterm list -&gt; preterm list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1150', 1150)" onmouseover="showTip(event, '1150', 1150)">
+            sift_atoms0 (atms0, gtys0) atms
+          </code>
+          <div class="tip" id="1150">
+            <strong>Signature:</strong> (atms0:preterm list * gtys0:pretype list) -&gt; atms:preterm list -&gt; preterm list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1151', 1151)" onmouseover="showTip(event, '1151', 1151)">
+            sort_by_type_complexity ptms
+          </code>
+          <div class="tip" id="1151">
+            <strong>Signature:</strong> ptms:preterm list -&gt; preterm list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1152', 1152)" onmouseover="showTip(event, '1152', 1152)">
+            unresolved_atoms atms
+          </code>
+          <div class="tip" id="1152">
+            <strong>Signature:</strong> atms:preterm list -&gt; preterm list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1153', 1153)" onmouseover="showTip(event, '1153', 1153)">
+            var_equiv1 v1 v2
+          </code>
+          <div class="tip" id="1153">
+            <strong>Signature:</strong> v1:preterm -&gt; v2:preterm -&gt; bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1154', 1154)" onmouseover="showTip(event, '1154', 1154)">
+            var_equiv2 theta v1 v2
+          </code>
+          <div class="tip" id="1154">
+            <strong>Signature:</strong> theta:(pretype * pretype) list -&gt; v1:preterm -&gt; v2:preterm -&gt; bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <img src="/NHolZ/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">NHolZ</li>
+            <li><a href="/NHolZ/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/NHolZ">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/domasin/NHolZ">Source Code on GitHub</a></li>
+            <li><a href="/NHolZ/license.html">License</a></li>
+            <li><a href="/NHolZ/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/NHolZ/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/NHolZ/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/domasin/NHolZ"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

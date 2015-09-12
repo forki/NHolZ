@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Equal - NHolZ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Domenico Masini"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="/NHolZ/content/style.css" />
+    <script type="text/javascript" src="/NHolZ/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://github.com/domasin/NHolZ">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/NHolZ/index.html">NHolZ</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>Equal</h1>
+<p>
+  <span>Namespace: NHolZ</span><br />
+</p>
+<div class="xmldoc">
+<p>This module adds more constants and inference rules for basic reasoning
+using equality.</p>
+
+
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+
+  <h3>Functions and values</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Function or value</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '221', 221)" onmouseover="showTip(event, '221', 221)">
+            alpha_conv u tm
+          </code>
+          <div class="tip" id="221">
+            <strong>Signature:</strong> u:term -&gt; tm:term -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '222', 222)" onmouseover="showTip(event, '222', 222)">
+            alpha_link_conv tm&#39; tm
+          </code>
+          <div class="tip" id="222">
+            <strong>Signature:</strong> tm&#39;:term -&gt; tm:term -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '223', 223)" onmouseover="showTip(event, '223', 223)">
+            app_beta_rhs_rule th0 z
+          </code>
+          <div class="tip" id="223">
+            <strong>Signature:</strong> th0:thm -&gt; z:term -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '224', 224)" onmouseover="showTip(event, '224', 224)">
+            app_beta_rule th0 tm
+          </code>
+          <div class="tip" id="224">
+            <strong>Signature:</strong> th0:thm -&gt; tm:term -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '225', 225)" onmouseover="showTip(event, '225', 225)">
+            beta_thm_rule th0 th
+          </code>
+          <div class="tip" id="225">
+            <strong>Signature:</strong> th0:thm -&gt; th:thm -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '226', 226)" onmouseover="showTip(event, '226', 226)">
+            conv_rule conv th
+          </code>
+          <div class="tip" id="226">
+            <strong>Signature:</strong> conv:(term -&gt; thm) -&gt; th:thm -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '227', 227)" onmouseover="showTip(event, '227', 227)">
+            dest_let tm
+          </code>
+          <div class="tip" id="227">
+            <strong>Signature:</strong> tm:term -&gt; (term * term) list * term<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '228', 228)" onmouseover="showTip(event, '228', 228)">
+            is_let tm
+          </code>
+          <div class="tip" id="228">
+            <strong>Signature:</strong> tm:term -&gt; bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '229', 229)" onmouseover="showTip(event, '229', 229)">
+            let_def 
+          </code>
+          <div class="tip" id="229">
+            <strong>Signature:</strong> thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '230', 230)" onmouseover="showTip(event, '230', 230)">
+            list_app_beta_rhs_rule th0 zs
+          </code>
+          <div class="tip" id="230">
+            <strong>Signature:</strong> th0:thm -&gt; zs:term list -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '231', 231)" onmouseover="showTip(event, '231', 231)">
+            list_app_beta_rule th0 tms
+          </code>
+          <div class="tip" id="231">
+            <strong>Signature:</strong> th0:thm -&gt; tms:term list -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '232', 232)" onmouseover="showTip(event, '232', 232)">
+            list_beta_thm_rule th0 ths
+          </code>
+          <div class="tip" id="232">
+            <strong>Signature:</strong> th0:thm -&gt; ths:thm list -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '233', 233)" onmouseover="showTip(event, '233', 233)">
+            list_trans_rule ths
+          </code>
+          <div class="tip" id="233">
+            <strong>Signature:</strong> ths:thm list -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '234', 234)" onmouseover="showTip(event, '234', 234)">
+            mk_comb1_rule th tm
+          </code>
+          <div class="tip" id="234">
+            <strong>Signature:</strong> th:thm -&gt; tm:term -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '235', 235)" onmouseover="showTip(event, '235', 235)">
+            mk_comb2_rule tm th
+          </code>
+          <div class="tip" id="235">
+            <strong>Signature:</strong> tm:term -&gt; th:thm -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '236', 236)" onmouseover="showTip(event, '236', 236)">
+            mk_let (vtms, tm0)
+          </code>
+          <div class="tip" id="236">
+            <strong>Signature:</strong> (vtms:(term * term) list * tm0:term) -&gt; term<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '237', 237)" onmouseover="showTip(event, '237', 237)">
+            onto_def 
+          </code>
+          <div class="tip" id="237">
+            <strong>Signature:</strong> thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '238', 238)" onmouseover="showTip(event, '238', 238)">
+            subs_conv ths tm
+          </code>
+          <div class="tip" id="238">
+            <strong>Signature:</strong> ths:thm list -&gt; tm:term -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '239', 239)" onmouseover="showTip(event, '239', 239)">
+            subs_rule ths th
+          </code>
+          <div class="tip" id="239">
+            <strong>Signature:</strong> ths:thm list -&gt; th:thm -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '240', 240)" onmouseover="showTip(event, '240', 240)">
+            subst_conv vths tmp tm
+          </code>
+          <div class="tip" id="240">
+            <strong>Signature:</strong> vths:(term * thm) list -&gt; tmp:term -&gt; tm:term -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '241', 241)" onmouseover="showTip(event, '241', 241)">
+            subst_rule vths tmp th
+          </code>
+          <div class="tip" id="241">
+            <strong>Signature:</strong> vths:(term * thm) list -&gt; tmp:term -&gt; th:thm -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '242', 242)" onmouseover="showTip(event, '242', 242)">
+            sym_rule th
+          </code>
+          <div class="tip" id="242">
+            <strong>Signature:</strong> th:thm -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '243', 243)" onmouseover="showTip(event, '243', 243)">
+            trans_rule tha thb
+          </code>
+          <div class="tip" id="243">
+            <strong>Signature:</strong> tha:thm -&gt; thb:thm -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <img src="/NHolZ/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">NHolZ</li>
+            <li><a href="/NHolZ/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/NHolZ">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/domasin/NHolZ">Source Code on GitHub</a></li>
+            <li><a href="/NHolZ/license.html">License</a></li>
+            <li><a href="/NHolZ/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/NHolZ/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/NHolZ/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/domasin/NHolZ"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>

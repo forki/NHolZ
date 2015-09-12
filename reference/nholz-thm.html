@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Thm - NHolZ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Domenico Masini"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="/NHolZ/content/style.css" />
+    <script type="text/javascript" src="/NHolZ/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://github.com/domasin/NHolZ">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/NHolZ/index.html">NHolZ</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+
+
+
+<h1>Thm</h1>
+<p>
+  <span>Namespace: NHolZ</span><br />
+</p>
+<div class="xmldoc">
+<p>This module defines the basic mechanisms for logical deduction and theory 
+assertion.  As is characteristic of LCF-style theorem provers, this is  <br />
+done by defining an abstract datatype for the internal representation of<br />
+HOL theorems.  The primitive constructors for this datatype are limited to
+the primitive inference rules and the primitive assertion commands.  Any<br />
+subsequent theorem-creating functions must ultimately be implemented in <br />
+terms of these constructors.  This module is a trusted component of the <br />
+system.</p>
+
+
+</div>
+
+<!-- Render nested types and modules, if there are any -->
+  <h2>Nested types and modules</h2>
+  <div>
+      <table class="table table-bordered type-list">
+    <thead>
+      <tr><td>Type</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td class="type-name">
+            <a href="nholz-thm-thm.html">thm</a>
+          </td>
+          <td class="xmldoc"><p>This is the datatype for internal HOL theorems.  A theorem consists of a
+list of assumptions and a conclusion, all of which are boolean terms.</p>
+
+
+</td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+  <h3>Functions and values</h3>
+  <table class="table table-bordered member-list">
+    <thead>
+      <tr><td>Function or value</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1051', 1051)" onmouseover="showTip(event, '1051', 1051)">
+            asms th
+          </code>
+          <div class="tip" id="1051">
+            <strong>Signature:</strong> th:thm -&gt; term list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the hypotheses of a theorem.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1052', 1052)" onmouseover="showTip(event, '1052', 1052)">
+            concl th
+          </code>
+          <div class="tip" id="1052">
+            <strong>Signature:</strong> th:thm -&gt; term<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1053', 1053)" onmouseover="showTip(event, '1053', 1053)">
+            dest_thm arg1
+          </code>
+          <div class="tip" id="1053">
+            <strong>Signature:</strong> thm -&gt; term list * term<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Breaks a theorem into assumption list and conclusion.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1054', 1054)" onmouseover="showTip(event, '1054', 1054)">
+            get_all_axioms ()
+          </code>
+          <div class="tip" id="1054">
+            <strong>Signature:</strong> unit -&gt; (string * thm) list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the name and assertion theorem for each asserted axiom.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1055', 1055)" onmouseover="showTip(event, '1055', 1055)">
+            get_all_const_definitions ()
+          </code>
+          <div class="tip" id="1055">
+            <strong>Signature:</strong> unit -&gt; (string * thm) list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the name and assertion theorem for each defined constant.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1056', 1056)" onmouseover="showTip(event, '1056', 1056)">
+            get_all_const_specification_info ()
+          </code>
+          <div class="tip" id="1056">
+            <strong>Signature:</strong> unit -&gt; ((string list * thm) * thm) list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1057', 1057)" onmouseover="showTip(event, '1057', 1057)">
+            get_all_const_specifications ()
+          </code>
+          <div class="tip" id="1057">
+            <strong>Signature:</strong> unit -&gt; (string list * thm) list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the constant names and assertion theorem for each group of 
+specified constants.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1058', 1058)" onmouseover="showTip(event, '1058', 1058)">
+            get_all_tyconst_definition_info ()
+          </code>
+          <div class="tip" id="1058">
+            <strong>Signature:</strong> unit -&gt; (string * (thm * thm)) list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1059', 1059)" onmouseover="showTip(event, '1059', 1059)">
+            get_all_tyconst_definitions ()
+          </code>
+          <div class="tip" id="1059">
+            <strong>Signature:</strong> unit -&gt; (string * thm) list<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the name and assertion theorem for each defined type constant.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1060', 1060)" onmouseover="showTip(event, '1060', 1060)">
+            get_axiom x
+          </code>
+          <div class="tip" id="1060">
+            <strong>Signature:</strong> x:string -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the assertion theorem for the axiom with the supplied name.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1061', 1061)" onmouseover="showTip(event, '1061', 1061)">
+            get_const_definition x
+          </code>
+          <div class="tip" id="1061">
+            <strong>Signature:</strong> x:string -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the assertion theorem for the defined constant with the supplied
+name.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1062', 1062)" onmouseover="showTip(event, '1062', 1062)">
+            get_const_specification x
+          </code>
+          <div class="tip" id="1062">
+            <strong>Signature:</strong> x:string -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the assertion theorem for the specified constant with the supplied
+name.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1063', 1063)" onmouseover="showTip(event, '1063', 1063)">
+            get_const_specification_info x
+          </code>
+          <div class="tip" id="1063">
+            <strong>Signature:</strong> x:string -&gt; (string list * thm) * thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1064', 1064)" onmouseover="showTip(event, '1064', 1064)">
+            get_tyconst_definition x
+          </code>
+          <div class="tip" id="1064">
+            <strong>Signature:</strong> x:string -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Returns the assertion theorem for the defined type constant with the
+supplied name.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1065', 1065)" onmouseover="showTip(event, '1065', 1065)">
+            get_tyconst_definition_info x
+          </code>
+          <div class="tip" id="1065">
+            <strong>Signature:</strong> x:string -&gt; thm * thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1066', 1066)" onmouseover="showTip(event, '1066', 1066)">
+            get_tyconst_definition_info0 func x
+          </code>
+          <div class="tip" id="1066">
+            <strong>Signature:</strong> func:string -&gt; x:string -&gt; thm * thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1067', 1067)" onmouseover="showTip(event, '1067', 1067)">
+            prim_assume_rule tm
+          </code>
+          <div class="tip" id="1067">
+            <strong>Signature:</strong> tm:term -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>This is the assumption rule.  It takes a boolean term, and returns a <br />
+theorem stating that the term holds under the single assumption of the 
+term itself.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1068', 1068)" onmouseover="showTip(event, '1068', 1068)">
+            prim_beta_conv tm
+          </code>
+          <div class="tip" id="1068">
+            <strong>Signature:</strong> tm:term -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>This is the beta reduction rule.  It takes a lambda abstraction       <br />
+application term, and returns a theorem stating that the application is 
+equal to the lambda abstraction body but with all occurrences of the  <br />
+binding variable replaced with the application's argument, under no   <br />
+assumptions.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1069', 1069)" onmouseover="showTip(event, '1069', 1069)">
+            prim_disch_rule tm arg2
+          </code>
+          <div class="tip" id="1069">
+            <strong>Signature:</strong> tm:term -&gt; thm -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>This is the implication introduction rule.  It takes a boolean term and a
+theorem, and removes the term from the theorem's assumptions (if present)
+and adds it as an antecedent of the conclusion.  Note that the term does 
+not have to be in the assumptions of the supplied theorem for the rule to</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1070', 1070)" onmouseover="showTip(event, '1070', 1070)">
+            prim_eq_mp_rule arg1 arg2
+          </code>
+          <div class="tip" id="1070">
+            <strong>Signature:</strong> thm -&gt; thm -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>This is the equality modus ponens rule.  It takes an equality theorem and
+a second theorem, where the equality theorem's LHS is alpha-equivalent to
+the conclusion of the second theorem.  It returns a theorem stating that 
+the equality theorem's RHS holds, under the unioned assumptions of the <br />
+supplied theorems.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1071', 1071)" onmouseover="showTip(event, '1071', 1071)">
+            prim_inst_rule theta arg2
+          </code>
+          <div class="tip" id="1071">
+            <strong>Signature:</strong> theta:(term * term) list -&gt; thm -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>This is the variable instantiation rule.  It takes a variable          <br />
+instantiation list and a theorem, and performs a single parallel       <br />
+instantiation of the free variables in the theorem's assumptions and   <br />
+conclusion, according to the instantiation list.  All free occurrences of
+instantiation list domain elements in the theorem get replaced.  Each  <br />
+instantiation list domain element must be a variable, and each range   <br />
+element must have the same type as its corresponding domain element.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1072', 1072)" onmouseover="showTip(event, '1072', 1072)">
+            prim_inst_type_rule tytheta arg2
+          </code>
+          <div class="tip" id="1072">
+            <strong>Signature:</strong> tytheta:(hol_type * hol_type) list -&gt; thm -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>This is the type variable instantiation rule.  It takes a type variable<br />
+instantiation list and a theorem, and performs a single parallel       <br />
+instantiation of the type variables in the theorem's assumptions and   <br />
+conclusion, according to the instantiation list.  All occurrences of   <br />
+instantiation list domain elements in the theorem get replaced.  Each  <br />
+instantiation list domain element must be a type variable.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1073', 1073)" onmouseover="showTip(event, '1073', 1073)">
+            prim_mk_abs_rule v arg2
+          </code>
+          <div class="tip" id="1073">
+            <strong>Signature:</strong> v:term -&gt; thm -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>This is the equality congruence rule for lambda abstraction.  It takes a<br />
+variable and an equality theorem, and abstracts the variable from both  <br />
+sides of the theorem.  The variable must not occur free in the assumptions
+of the supplied theorem.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1074', 1074)" onmouseover="showTip(event, '1074', 1074)">
+            prim_mk_comb_rule arg1 arg2
+          </code>
+          <div class="tip" id="1074">
+            <strong>Signature:</strong> thm -&gt; thm -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>This is the equality congruence rule for function application.  It takes<br />
+two equality theorems, and applies corresponding sides of the first     <br />
+theorem to the second, unioning the assumptions.  The first theorem's LHS/
+RHS must be functions with domain type equal to the type of the second  <br />
+theorem's LHS/RHS.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1075', 1075)" onmouseover="showTip(event, '1075', 1075)">
+            prim_mp_rule arg1 arg2
+          </code>
+          <div class="tip" id="1075">
+            <strong>Signature:</strong> thm -&gt; thm -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>This is the modus ponens rule.  It takes an implication theorem and a   <br />
+second theorem, where the implication theorem's antecedent is alpha-    <br />
+equivalent to the conclusion of the second theorem.  It returns a theorem 
+stating that the implication theorem's consequent holds, under the unioned
+assumptions of the supplied theorems.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1076', 1076)" onmouseover="showTip(event, '1076', 1076)">
+            prim_new_axiom (x, tm)
+          </code>
+          <div class="tip" id="1076">
+            <strong>Signature:</strong> (x:string * tm:term) -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>This is the primitive axiom assertion command.  It takes a string and a <br />
+term.  The string becomes the name of a new axiom in the theory, and must 
+not be an existing axiom name.  The term becomes the asserted axiom, and<br />
+must be of boolean type and must not contain free variables.  The       <br />
+resulting assertion theorem states that the supplied boolean term holds,<br />
+under no assumptions.  A note of the axiom is reported, and the assertion 
+theorem is returned.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1077', 1077)" onmouseover="showTip(event, '1077', 1077)">
+            prim_new_const_definition (x, tm)
+          </code>
+          <div class="tip" id="1077">
+            <strong>Signature:</strong> (x:string * tm:term) -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>This is the primitive definition command for constants.  It takes a string 
+and a term.  The string becomes the name of a new constant in the theory,<br />
+and must not be the name of an existing constant.  The term becomes the  <br />
+definition term for the new constant, and must not contain free vars, and<br />
+must not contain tyvars that are not in its top-level type.  The resulting 
+definition theorem asserts that the new constant equals the supplied term, 
+under no assumptions.  A note of the definition is reported, and the     <br />
+definition theorem is returned.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1078', 1078)" onmouseover="showTip(event, '1078', 1078)">
+            prim_new_const_specification (xs, th)
+          </code>
+          <div class="tip" id="1078">
+            <strong>Signature:</strong> (xs:string list * th:thm) -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>This is the primitive specification command for constants.  It takes a  <br />
+non-empty string list and an existentially quantified theorem.  The     <br />
+strings correspond one-to-one to the names of the new constants to be   <br />
+added to the theory, and must not include any existing constant names.  <br />
+They also correspond one-to-one to the outer-quantified variables of the<br />
+supplied existential theorem, in the same order, although they potentially
+have different names.  The supplied existential theorem must have no free 
+variables and no assumptions.  Furthermore, its outer-quantified variables
+must each have the same type variables, and the body of the existential <br />
+must not involve any other type variables.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1079', 1079)" onmouseover="showTip(event, '1079', 1079)">
+            prim_new_tyconst_definition (x, arg2)
+          </code>
+          <div class="tip" id="1079">
+            <strong>Signature:</strong> (x:string * thm) -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>This is the primitive definition command for type constants.  It takes a<br />
+string and a theorem.  The string becomes the name of a new type constant 
+in the theory, and must not be the name of an existing type constant.  The
+theorem argument must have no assumptions and a conclusion of the form  <br />
+<code>?v. P v</code>, where <code>P</code> is the characteristic function (prescribing the    <br />
+subset of the representation type that is in bijection with a general   <br />
+instance of the new type constant), and the theorem itself establishes  <br />
+that the subset is non-empty.  The predicate <code>P</code> must not contain free  <br />
+variables, and its number of type variables becomes the arity of the new<br />
+type constant.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1080', 1080)" onmouseover="showTip(event, '1080', 1080)">
+            prim_refl_conv tm
+          </code>
+          <div class="tip" id="1080">
+            <strong>Signature:</strong> tm:term -&gt; thm<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>This is the reflexivity rule for equality.  It takes a term, and returns a *)
+There are no restrictions on the supplied term.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1081', 1081)" onmouseover="showTip(event, '1081', 1081)">
+            the_axioms 
+          </code>
+          <div class="tip" id="1081">
+            <strong>Signature:</strong> dltree&lt;string,thm&gt; ref<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Axioms are stored in a dynamic lookup tree, indexed by axiom name.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1082', 1082)" onmouseover="showTip(event, '1082', 1082)">
+            the_const_defs 
+          </code>
+          <div class="tip" id="1082">
+            <strong>Signature:</strong> dltree&lt;string,thm&gt; ref<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Constant definitions are stored in a dynamic lookup tree, indexed by the
+name of the constant defined.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1083', 1083)" onmouseover="showTip(event, '1083', 1083)">
+            the_const_specs 
+          </code>
+          <div class="tip" id="1083">
+            <strong>Signature:</strong> (string list * (thm * thm)) list ref<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          <p>Constant specifications are stored in an association list, indexed by the
+list of names of the constants defined.</p>
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1084', 1084)" onmouseover="showTip(event, '1084', 1084)">
+            the_tyconst_defs 
+          </code>
+          <div class="tip" id="1084">
+            <strong>Signature:</strong> dltree&lt;string,(thm * thm)&gt; ref<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="member-name">
+
+          <code onmouseout="hideTip(event, '1085', 1085)" onmouseover="showTip(event, '1085', 1085)">
+            thm_eq x y
+          </code>
+          <div class="tip" id="1085">
+            <strong>Signature:</strong> x:thm -&gt; y:thm -&gt; bool<br />
+                      </div>
+        </td>
+        <td class="xmldoc">
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+        </div>
+        <div class="span3">
+          <img src="/NHolZ/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">NHolZ</li>
+            <li><a href="/NHolZ/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.org/packages/NHolZ">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/domasin/NHolZ">Source Code on GitHub</a></li>
+            <li><a href="/NHolZ/license.html">License</a></li>
+            <li><a href="/NHolZ/release-notes.html">Release Notes</a></li>
+            
+            <li class="nav-header">Getting started</li>
+            <li><a href="/NHolZ/tutorial.html">Sample tutorial</a></li>
+
+            <li class="nav-header">Documentation</li>
+            <li><a href="/NHolZ/reference/index.html">API Reference</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/domasin/NHolZ"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"/></a>
+  </body>
+  </html>
