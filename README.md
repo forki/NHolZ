@@ -1,38 +1,35 @@
-[![Issue Stats](http://issuestats.com/github/fsprojects/ProjectScaffold/badge/issue)](http://issuestats.com/github/fsprojects/ProjectScaffold)
-[![Issue Stats](http://issuestats.com/github/fsprojects/ProjectScaffold/badge/pr)](http://issuestats.com/github/fsprojects/ProjectScaffold)
+[![Issue Stats](http://issuestats.com/github/domasin/NHolZ/badge/issue)](http://issuestats.com/github/domasin/NHolZ)
+[![Issue Stats](http://issuestats.com/github/domasin/NHolZ/badge/pr)](http://issuestats.com/github/domasin/NHolZ)
 
-# ProjectScaffold
+# NHolZ
 
-This project can be used to scaffold a prototypical .NET solution including file system layout and tooling. This includes a build process that: 
+HOL Zero e' un dimostratore di teoremi, cioe' un programma che supporta la dimostrazione 
+formale di teoremi e lo sviluppo di teorie nella logica HOL. Come l'autore evidenzia, si 
+tratta di un dimostratore di teoremi relativamente semplice che lo rende anche adatto 
+a scopi educativi per aiutare logici, programmatori e informatici, che lo desiderano, a 
+imparare come funziona un dimostratore di teoremi.
 
-* updates all AssemblyInfo files
-* compiles the application and runs all test projects
-* generates [SourceLinks](https://github.com/ctaggart/SourceLink)
-* generates API docs based on XML document tags
-* generates [documentation based on Markdown files](http://fsprojects.github.io/ProjectScaffold/writing-docs.html)
-* generates [NuGet](http://www.nuget.org) packages
-* and allows a simple [one step release process](http://fsprojects.github.io/ProjectScaffold/release-process.html).
+NHolZ e' un porting in F# di HOL Zero, ed ha avuto per me il duplice scopo di imparare l'F# 
+portando a termine il porting di un progetto esistente in un altro linguaggio simile all'F# 
+e d'imparare il funzionamento del contenuto stesso del programma: la dimostrazione formale e 
+meccanizzata di teoremi.
 
-In order to start the scaffolding process run 
+In questo lavoro mi sono ispirato all'analogo porting del codice e degli esempi del libro 
+di John Harrison "[Handbook of Practical Logic and Automated Reasoning](https://www.cl.cam.ac.uk/~jrh13/atp/index.html)" 
+portato a termine da [Jack Pappas](https://github.com/jack-pappas), [Eric Taucher](https://github.com/EricGT), [Anh-Dung Phan](https://github.com/dungpa) 
+e disponibile al link http://github.com/jack-pappas/fsharp-logic-examples.
 
-    > build.cmd // on windows    
-    $ ./build.sh  // on unix
-    
-Read the [Getting started tutorial](http://fsprojects.github.io/ProjectScaffold/index.html#Getting-started) to learn more.
-
-Documentation: http://fsprojects.github.io/ProjectScaffold
+Documentation: http://domasin.github.io/NHolZ
 
 
 ## Build Status
 
 Mono | .NET
 ---- | ----
-[![Mono CI Build Status](https://img.shields.io/travis/fsprojects/ProjectScaffold/master.svg)](https://travis-ci.org/fsprojects/ProjectScaffold) | [![.NET Build Status](https://img.shields.io/appveyor/ci/fsgit/ProjectScaffold/master.svg)](https://ci.appveyor.com/project/fsgit/projectscaffold)
+[![Mono CI Build Status](https://img.shields.io/travis/domasin/NHolZ/master.svg)](https://travis-ci.org/domasin/NHolZ) | [![.NET Build Status](https://img.shields.io/appveyor/ci/fsgit/NHolZ/master.svg)](https://ci.appveyor.com/project/fsgit/NHolZ)
 
-## Maintainer(s)
+## Maintainer
 
-- [@forki](https://github.com/forki)
-- [@pblasucci](https://github.com/pblasucci)
-- [@sergey-tihon](https://github.com/sergey-tihon)
+- [@domasin](https://github.com/domasin)
 
-The default maintainer account for projects under "fsprojects" is [@fsprojectsgit](https://github.com/fsprojectsgit) - F# Community Project Incubation Space (repo management)
+
