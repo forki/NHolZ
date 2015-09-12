@@ -1,3 +1,5 @@
+before_build:
+  - nuget restore
 init:
   - git config --global core.autocrlf input
 build_script:
