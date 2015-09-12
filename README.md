@@ -27,7 +27,7 @@ Documentation: http://domasin.github.io/NHolZ
 
 Mono | .NET
 ---- | ----
-[![Mono CI Build Status](https://img.shields.io/travis/domasin/NHolZ/master.svg)](https://travis-ci.org/domasin/NHolZ) | [![.NET Build Status](https://img.shields.io/appveyor/ci/fsgit/NHolZ/master.svg)](https://ci.appveyor.com/project/fsgit/NHolZ)
+[![Mono CI Build Status](https://img.shields.io/travis/domasin/NHolZ/master.svg)](https://travis-ci.org/domasin/NHolZ) | [![NET Build Status](https://ci.appveyor.com/api/projects/status/mr601trxpeh26r7f?svg=true)](https://ci.appveyor.com/project/domasin/nholz)
 
 ## Maintainer
 
