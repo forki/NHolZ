@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+sudo: required
+
 set -eu
 set -o pipefail
 
