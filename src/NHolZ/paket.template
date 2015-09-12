@@ -1,0 +1,23 @@
+type project
+owners
+    Domenico Masini
+authors 
+    Domenico Masini
+projectUrl
+    http://github.com/domasin/NHolZ
+iconUrl
+    https://raw.githubusercontent.com/domasin/NHolZ/master/docs/files/img/logo.png
+licenseUrl
+    http://github.com/domasin/NHolZ/blob/master/LICENSE.txt
+requireLicenseAcceptance
+    false
+copyright
+    Copyright 2015
+tags
+    logic
+summary
+    A porting in F# of the \"Original OCaml version of HOL Zero\" by Mark Adams
+description
+    HOL Zero is a HOL theorem prover, i.e. a program supporting formal proof and theory development in the HOL logic. As the author points out, it is a relatively simple theorem prover and this also make it suitable to understand how theorem provers work.
+
+
