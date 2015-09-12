@@ -39,6 +39,8 @@ e disponibile al link http://github.com/jack-pappas/fsharp-logic-examples.
   <div class="span1"></div>
 </div>-->
 
+Ciò che segue è tutto da aggiornare
+
 Example
 -------
 
