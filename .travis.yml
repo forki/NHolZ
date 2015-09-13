@@ -3,4 +3,5 @@ language: csharp
 sudo: required  # use the new container-based Travis infrastructure 
 
 script: 
+  - sudo chmod +x build.sh
   - sudo ./build.sh All
