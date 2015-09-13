@@ -55,6 +55,17 @@
 <span class="l">21: </span>
 <span class="l">22: </span>
 <span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+<span class="l">29: </span>
+<span class="l">30: </span>
+<span class="l">31: </span>
+<span class="l">32: </span>
+<span class="l">33: </span>
+<span class="l">34: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="prep">#I</span> <span class="s">&quot;../../bin/NHolZ&quot;</span>
 <span class="prep">#r</span> <span class="s">&quot;NHolZ.dll&quot;</span>
@@ -79,6 +90,17 @@
 <span onmouseout="hideTip(event, 'fs17', 25)" onmouseover="showTip(event, 'fs17', 25)" class="i">numeral_def</span>;;           <span class="c">//NatNumrl</span>
 <span onmouseout="hideTip(event, 'fs18', 26)" onmouseover="showTip(event, 'fs18', 26)" class="i">add_def</span>;;               <span class="c">//NatArith</span>
 <span onmouseout="hideTip(event, 'fs19', 27)" onmouseover="showTip(event, 'fs19', 27)" class="i">lt_def</span>;;                <span class="c">//NatRel</span>
+
+<span class="c">// printing functions per le tattiche: </span>
+<span class="c">// vanno caricate solo dopo l&#39;inizializzazione.</span>
+<span onmouseout="hideTip(event, 'fs2', 28)" onmouseover="showTip(event, 'fs2', 28)" class="i">fsi</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 29)" onmouseover="showTip(event, 'fs3', 29)" class="f">AddPrinter</span> <span onmouseout="hideTip(event, 'fs20', 30)" onmouseover="showTip(event, 'fs20', 30)" class="f">string_of_justification</span>;;
+<span onmouseout="hideTip(event, 'fs2', 31)" onmouseover="showTip(event, 'fs2', 31)" class="i">fsi</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 32)" onmouseover="showTip(event, 'fs3', 32)" class="f">AddPrinter</span> <span onmouseout="hideTip(event, 'fs21', 33)" onmouseover="showTip(event, 'fs21', 33)" class="f">string_of_refinement</span>;;
+<span onmouseout="hideTip(event, 'fs2', 34)" onmouseover="showTip(event, 'fs2', 34)" class="i">fsi</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 35)" onmouseover="showTip(event, 'fs3', 35)" class="f">AddPrinter</span> <span onmouseout="hideTip(event, 'fs22', 36)" onmouseover="showTip(event, 'fs22', 36)" class="f">string_of_tactic</span>;;
+<span onmouseout="hideTip(event, 'fs2', 37)" onmouseover="showTip(event, 'fs2', 37)" class="i">fsi</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 38)" onmouseover="showTip(event, 'fs3', 38)" class="f">AddPrinter</span> <span onmouseout="hideTip(event, 'fs23', 39)" onmouseover="showTip(event, 'fs23', 39)" class="f">string_of_thm_tactic</span>;;
+<span onmouseout="hideTip(event, 'fs2', 40)" onmouseover="showTip(event, 'fs2', 40)" class="i">fsi</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 41)" onmouseover="showTip(event, 'fs3', 41)" class="f">AddPrinter</span> <span onmouseout="hideTip(event, 'fs24', 42)" onmouseover="showTip(event, 'fs24', 42)" class="f">string_of_thm_tactical</span>;;
+<span onmouseout="hideTip(event, 'fs2', 43)" onmouseover="showTip(event, 'fs2', 43)" class="i">fsi</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 44)" onmouseover="showTip(event, 'fs3', 44)" class="f">AddPrinter</span> <span onmouseout="hideTip(event, 'fs25', 45)" onmouseover="showTip(event, 'fs25', 45)" class="f">string_of_goal</span>;;
+<span onmouseout="hideTip(event, 'fs2', 46)" onmouseover="showTip(event, 'fs2', 46)" class="i">fsi</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 47)" onmouseover="showTip(event, 'fs3', 47)" class="f">AddPrinter</span> <span onmouseout="hideTip(event, 'fs26', 48)" onmouseover="showTip(event, 'fs26', 48)" class="f">string_of_goalstack</span>;;
+<span onmouseout="hideTip(event, 'fs2', 49)" onmouseover="showTip(event, 'fs2', 49)" class="i">fsi</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 50)" onmouseover="showTip(event, 'fs3', 50)" class="f">AddPrinter</span> <span onmouseout="hideTip(event, 'fs27', 51)" onmouseover="showTip(event, 'fs27', 51)" class="f">string_of_goalstate</span>;;
 </code></pre></td>
 </tr>
 </table>
@@ -102,6 +124,14 @@
 <div class="tip" id="fs17">val numeral_def : thm<br /><br />Full name: NHolZ.NatNumrl.numeral_def</div>
 <div class="tip" id="fs18">val add_def : thm<br /><br />Full name: NHolZ.NatArith.add_def</div>
 <div class="tip" id="fs19">val lt_def : thm<br /><br />Full name: NHolZ.NatRel.lt_def</div>
+<div class="tip" id="fs20">val string_of_justification : (justification -&gt; string)<br /><br />Full name: NHolZ.tactics.string_of_justification</div>
+<div class="tip" id="fs21">val string_of_refinement : (refinement -&gt; string)<br /><br />Full name: NHolZ.tactics.string_of_refinement</div>
+<div class="tip" id="fs22">val string_of_tactic : (tactic -&gt; string)<br /><br />Full name: NHolZ.tactics.string_of_tactic</div>
+<div class="tip" id="fs23">val string_of_thm_tactic : (tactic -&gt; string)<br /><br />Full name: NHolZ.tactics.string_of_thm_tactic</div>
+<div class="tip" id="fs24">val string_of_thm_tactical : (thm_tactical -&gt; string)<br /><br />Full name: NHolZ.tactics.string_of_thm_tactical</div>
+<div class="tip" id="fs25">val string_of_goal : (goal -&gt; string)<br /><br />Full name: NHolZ.tactics.string_of_goal</div>
+<div class="tip" id="fs26">val string_of_goalstack : (goalstack -&gt; string)<br /><br />Full name: NHolZ.tactics.string_of_goalstack</div>
+<div class="tip" id="fs27">val string_of_goalstate : ((term list * ((int * term) list * (term * term) list * (term * term) list)) * goal list * justification -&gt; string)<br /><br />Full name: NHolZ.tactics.string_of_goalstate</div>
 
         </div>
         <div class="span3">
