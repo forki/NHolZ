@@ -9,7 +9,7 @@ Implementazione sperimentale di tattiche
 
 Hol Zero implementa solo regole di derivazione cosiddette *in avanti*. Gli ultimi 5 file 
 in NHolZ sono derivati da hol_light di John Harrison per provare ad aggiungere delle 
-funzionalità di dimostrazione interattiva *all'indietro* al codice originario.
+funzionalita' di dimostrazione interattiva *all'indietro* al codice originario.
 
 Il seguente codice carica le funzioni di stampa e mostra in qualche modo come funzionano 
 le tattiche al loro interno: si creano a partire da un goal *all'indietro* dei sottogoal 

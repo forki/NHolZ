@@ -40,7 +40,7 @@ let summary = "A porting in F# of the \"Original OCaml version of HOL Zero\" by 
 
 // Longer description of the project
 // (used as a description for NuGet package; line breaks are automatically cleaned up)
-let description = "HOL Zero is a HOL theorem prover, i.e. a program supporting formal proof and theory development in the HOL logic. As the author points out, it is a relatively simple theorem prover and this also make it suitable to understand how theorem provers work."
+let description = "HOL Zero is a HOL theorem prover, i.e. a program supporting formal proof and theory development in the HOL logic. As the author points out, it is a relatively simple theorem prover and this also make it suitable to understand how theorem provers work. NHolZ is just a porting of HOL Zero in F#."
 
 // List of author names (for NuGet package)
 let authors = [ "Domenico Masini" ]
