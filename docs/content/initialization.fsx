@@ -21,3 +21,14 @@ is_nat_rep_def;;        //Nat
 numeral_def;;           //NatNumrl
 add_def;;               //NatArith
 lt_def;;                //NatRel
+
+// printing functions per le tattiche: 
+// vanno caricate solo dopo l'inizializzazione.
+fsi.AddPrinter string_of_justification;;
+fsi.AddPrinter string_of_refinement;;
+fsi.AddPrinter string_of_tactic;;
+fsi.AddPrinter string_of_thm_tactic;;
+fsi.AddPrinter string_of_thm_tactical;;
+fsi.AddPrinter string_of_goal;;
+fsi.AddPrinter string_of_goalstack;;
+fsi.AddPrinter string_of_goalstate;;

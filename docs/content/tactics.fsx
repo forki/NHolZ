@@ -21,16 +21,6 @@ e una funzione di giustificazione che tiene traccia di quale regola deve essere 
 #load "initialization.fsx"
 open NHolZ
 
-// printing functions
-fsi.AddPrinter string_of_justification;;
-fsi.AddPrinter string_of_refinement;;
-fsi.AddPrinter string_of_tactic;;
-fsi.AddPrinter string_of_thm_tactic;;
-fsi.AddPrinter string_of_thm_tactical;;
-fsi.AddPrinter string_of_goal;;
-fsi.AddPrinter string_of_goalstack;;
-fsi.AddPrinter string_of_goalstate;;
-
 // se si deve dimostrare una congiunzione andranno dimostrati 
 // entrambi i congiunti.
 let goal1:goal = ([], (parse_term @"true /\ true"));;

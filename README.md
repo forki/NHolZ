@@ -20,7 +20,7 @@ di John Harrison "[Handbook of Practical Logic and Automated Reasoning](https://
 portato a termine da [Jack Pappas](https://github.com/jack-pappas), [Eric Taucher](https://github.com/EricGT), [Anh-Dung Phan](https://github.com/dungpa) 
 e disponibile al link http://github.com/jack-pappas/fsharp-logic-examples.
 
-Documentation: http://domasin.github.io/NHolZ
+Appunti: http://domasin.github.io/NHolZ
 
 
 ## Build Status
