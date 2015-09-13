@@ -11,6 +11,10 @@ open Fake.UserInputHelper
 open System
 open System.IO
 #if MONO
+let RestorePackages() = 
+    !! "./../**/packages.config"
+    |> Seq.iter (RestorePackage id)
+RestorePackages()
 #else
 #load "packages/SourceLink.Fake/tools/Fake.fsx"
 open SourceLink
@@ -346,10 +350,6 @@ Target "All" DoNothing
 
 "All" 
 #if MONO
-let RestorePackages() = 
-    !! "./../**/packages.config"
-    |> Seq.iter (RestorePackage id)
-RestorePackages()
 #else
   =?> ("SourceLink", Pdbstr.tryFind().IsSome )
 #endif
