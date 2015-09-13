@@ -1,4 +1,15 @@
-﻿(* ========================================================================= *)
+﻿// This and subsquent files are code ported form hol_light 
+// to add an experimental implementation of tactics to the 
+// code ported from Hol Zero.
+
+(* ========================================================================== *)
+(* F# Porting of hol_light nets.ml                                            *)
+(*                                                                            *)
+(* by Domenico Masini 2015                                                    *)
+(* partially based on NHol by Jack Pappas, Anh-Dung Phan, Eric Taucher        *)
+(* ========================================================================== *)
+
+(* ========================================================================= *)
 (* Term nets: reasonably fast lookup based on term matchability.             *)
 (*                                                                           *)
 (*       John Harrison, University of Cambridge Computer Laboratory          *)
@@ -7,20 +18,8 @@
 (*              (c) Copyright, John Harrison 1998-2007                       *)
 (* ========================================================================= *)
 
-(* ========================================================================== *)
-(* F# Porting                                                                 *)
-(*                                                                            *)
-(* by Domenico Masini 2013                                                    *)
-(* derived from NHol by Jack Pappas, Anh-Dung Phan, Eric Taucher              *)
-(* ========================================================================== *)
-
 [<AutoOpen>]
 module NHolZ.nets
-
-(* TODO :   If possible, modify the Lcnet and Cnet cases of 'term_label' by removing
-            the parentheses around their element type -- the parentheses cause the values
-            to be combined into a tuple, which adds an extra level of indirection when
-            we want to retrieve their values (not a desirable behavior for a lookup mechanism). *)
 
 /// Term nets are a finitely branching tree structure; at each level we
 /// have a set of branches and a set of "values". Linearization is

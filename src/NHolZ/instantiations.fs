@@ -1,10 +1,14 @@
-﻿[<AutoOpen>]
+﻿// This and subsquent files are code ported form hol_light 
+// to add an experimental implementation of tactics to the 
+// code ported from Hol Zero.
+
+// Code for instantiations derived from drule.fs hol_light
+
+[<AutoOpen>]
 module NHolZ.instantiations
 
 open FSharp.Compatibility.OCaml
 open FSharp.Compatibility.OCaml.Format
-
-// Code for instantiations derived from drule.fs hol_light
 
 (* ------------------------------------------------------------------------- *)
 (* Type of instantiations, with terms, types and higher-order data.          *)

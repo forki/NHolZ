@@ -1,7 +1,11 @@
-﻿[<AutoOpen>]
-module NHolZ.conversions
+﻿// This and subsquent files are code ported form hol_light 
+// to add an experimental implementation of tactics to the 
+// code ported from Hol Zero.
 
 // Code for conversions derived from equal.fs hol_light
+
+[<AutoOpen>]
+module NHolZ.conversions
 
 (* ------------------------------------------------------------------------- *)
 (* Type abbreviation for conversions.                                        *)

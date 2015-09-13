@@ -30,6 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{8E6D
 		docs\content\index.fsx = docs\content\index.fsx
 		docs\content\initialization.fsx = docs\content\initialization.fsx
 		docs\content\introduzione_a_hol.fsx = docs\content\introduzione_a_hol.fsx
+		docs\content\tactics.fsx = docs\content\tactics.fsx
 		docs\content\termini_tipi_teoremi.fsx = docs\content\termini_tipi_teoremi.fsx
 		docs\content\tutorial.fsx = docs\content\tutorial.fsx
 	EndProjectSection

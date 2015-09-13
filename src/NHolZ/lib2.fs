@@ -1,9 +1,13 @@
-﻿[<AutoOpen>]
+﻿// This and subsquent files are code ported form hol_light 
+// to add an experimental implementation of tactics to the 
+// code ported from Hol Zero.
+
+// derived from hol_light lib.fs and fusion.fs
+
+[<AutoOpen>]
 module NHolZ.lib2
 
 open FSharp.Compatibility.OCaml
-
-// derived from hol_light lib.fs and fusion.fs
 
 /// Looks up item in association list taking default in case of failure.
 // From Lib

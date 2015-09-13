@@ -1,4 +1,4 @@
-module NHolZ.Tests
+module NHolZ.Tests.Lib
 
 open NHolZ
 open NUnit.Framework

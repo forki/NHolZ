@@ -1,4 +1,25 @@
-﻿[<AutoOpen>]
+﻿// This and subsquent files are code ported form hol_light 
+// to add an experimental implementation of tactics to the 
+// code ported from Hol Zero.
+
+(* ========================================================================== *)
+(* F# Porting of hol_light tactics.ml                                         *)
+(*                                                                            *)
+(* by Domenico Masini 2015                                                    *)
+(* print functions are derived from                                           *)
+(* NHol by Jack Pappas, Anh-Dung Phan, Eric Taucher                           *)
+(* ========================================================================== *)
+
+(* ========================================================================= *)
+(* System of tactics (slightly different from any traditional LCF method).   *)
+(*                                                                           *)
+(*       John Harrison, University of Cambridge Computer Laboratory          *)
+(*                                                                           *)
+(*            (c) Copyright, University of Cambridge 1998                    *)
+(*              (c) Copyright, John Harrison 1998-2007                       *)
+(* ========================================================================= *)
+
+[<AutoOpen>]
 module NHolZ.tactics
 
 open FSharp.Compatibility.OCaml

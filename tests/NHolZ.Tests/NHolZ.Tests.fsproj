@@ -63,12 +63,34 @@
   -->
   <Import Project="..\..\.paket\paket.targets" />
   <ItemGroup>
-    <Compile Include="Lib.fs" />
     <None Include="paket.references" />
     <Content Include="app.config" />
     <Content Include="packages.config" />
+    <Compile Include="Exn.fs" />
+    <Compile Include="Lib.fs" />
+    <Compile Include="Dltree.fs" />
+    <Compile Include="Reader.fs" />
+    <Compile Include="Type.fs" />
+    <Compile Include="Term.fs" />
+    <Compile Include="Names.fs" />
+    <Compile Include="Dmodes.fs" />
+    <Compile Include="Lexer.fs" />
+    <Compile Include="Utils1.fs" />
+    <Compile Include="Thm.fs" />
+    <Compile Include="Preterm.fs" />
+    <Compile Include="TypeAnal.fs" />
+    <Compile Include="Parser.fs" />
+    <Compile Include="CoreThry.fs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="FSharp.Compatibility.OCaml">
+      <HintPath>..\..\packages\FSharp.Compatibility.OCaml.0.1.12\lib\net40\FSharp.Compatibility.OCaml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FSharp.Compatibility.OCaml.System">
+      <HintPath>..\..\packages\FSharp.Compatibility.OCaml.System.0.1.12\lib\net40\FSharp.Compatibility.OCaml.System.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FsUnit.CustomMatchers">
       <HintPath>..\..\packages\FsUnit.1.3.1.0\lib\FsUnit.CustomMatchers.dll</HintPath>
       <Private>True</Private>

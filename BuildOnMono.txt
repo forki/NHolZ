@@ -2,3 +2,4 @@ git clone https://github.com/domasin/NHolZ.git
 chmod +rxw -R NHolZ
 cd NHolZ
 sudo ./build.sh ALL
+sudo chmod +rwx -R bin
