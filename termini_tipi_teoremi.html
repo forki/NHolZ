@@ -77,15 +77,17 @@ minore di <em>z</em> allora <em>x</em> e' minore di <em>z</em>:</p>
 F# in generale hanno il prefisso <em>[HZ]</em>. Questo vale per tutti i messaggi riportati da NHolZ, 
 inclusi messaggi di errore, warning e feedback generici all'utente.</p>
 
-<p>HOL e' un linguaggio tipizzato, cos� ogni termine e sottotermine ha un tipo,
+<p>HOL e' un linguaggio tipizzato, cosi' ogni termine e sottotermine ha un tipo,
 e i termini devono essere costruiti in modo da avere un tipo corretto. Questo
-impedisce la costruzione di enunciati privi di significato come <em>3 � uguale a vero</em>.</p>
+impedisce la costruzione di enunciati privi di significato come <em>3 e' uguale a vero</em>.</p>
 
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
+<span class="l">3: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs2', 4)" onmouseover="showTip(event, 'fs2', 4)" class="f">parse_term</span>(<span class="s">&quot;3 = true&quot;</span>);;
-<span class="c">// - NHolZ.Exn+HolErr: [HZ] TYPE ERROR: Function subterm domain type incompatible with argument subterm type</span>
+<span class="c">// - NHolZ.Exn+HolErr: [HZ] TYPE ERROR: Function subterm domain type incompatible with argument </span>
+<span class="c">//   subterm type</span>
 </code></pre></td>
 </tr>
 </table>
@@ -93,7 +95,7 @@ impedisce la costruzione di enunciati privi di significato come <em>3 � uguale
 <p>I sottotermini nelle <em>term quotation</em> possono essere annotati per indicare il loro
 tipo, facendo seguire al sottotermine il simbolo di i due punti (<em>:</em>) e poi il suo
 tipo, il tutto chiuso tra parentesi. Di default, i termini sono ristampati a video con
-annotazioni di tipo sufficienti almeno ad evitare qualsiasi ambiguit� circa il tipo di
+annotazioni di tipo sufficienti almeno ad evitare qualsiasi ambiguita' circa il tipo di
 ogni sottotermine.</p>
 
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
