@@ -346,6 +346,10 @@ Target "All" DoNothing
 
 "All" 
 #if MONO
+let RestorePackages() = 
+    !! "./../**/packages.config"
+    |> Seq.iter (RestorePackage id)
+RestorePackages()
 #else
   =?> ("SourceLink", Pdbstr.tryFind().IsSome )
 #endif
