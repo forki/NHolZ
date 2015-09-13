@@ -1,6 +1,7 @@
 language: csharp
 
 sudo: required  # use the new container-based Travis infrastructure 
+solution: NHolZ.sln
 
 script: 
   - sudo chmod +x build.sh
