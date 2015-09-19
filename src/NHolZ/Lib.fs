@@ -593,57 +593,61 @@ let unfoldr dest_fn x =
     let (xs,x) = unfoldr0 dest_fn [] x in
     (rev xs, x)
 
-// unfoldr1 : ('a -> 'a * 'a) -> 'a -> 'a list                            
+//  unfoldr1 : ('a -> 'a * 'a) -> 'a -> 'a list                            
 //                                                                        
-///Uses a given binary destructor to repeatedly destruct the RHS branch of
-///the supplied argument until the destructor causes a HolFail exception. 
-///Returns the list of the LHSs and ending with the innermost RHS.
+/// Usa un dato decostruttore binario per decostruire ripetutamente i rami 
+/// destri dell'argomento fornito fino a quando il decostruttore causa una 
+/// HolFail exception. Restituisce la lista dei lati sinistri e che finisce 
+/// con il lato destro più interno.
 let unfoldr1 dest_fn x =
     let (xs,x) = unfoldr0 dest_fn [] x in
     rev (x::xs)
 
+/// Funzione tail ricorsiva a supporto della definizione di unfold.
 let rec unfold0 dest_fn x xs =
     try
     let (x1,x2) = dest_fn x in
     unfold0 dest_fn x1 (unfold0 dest_fn x2 xs)
     with HolFail _ -> x::xs
 
-// unfold : ('a -> 'a * 'a) -> 'a -> 'a list                                
+//  unfold : ('a -> 'a * 'a) -> 'a -> 'a list                                
 //                                                                          
-///Uses a given binary destructor to repeatedly destruct all branches of the
-///supplied argument until the destructor causes a HolFail excepton on each 
-///subbranch.  Returns a flattened list of the resulting tips.              
+/// Usa un dato decostruttore binario per decostruire ripetutamente tutti i 
+/// rami dell'argomento fornito fino a quando il decostruttore causa una 
+/// HolFail exception su ciasun sotto ramo. Restituisce una lista appiattita 
+/// delle estremità risultanti.      
 let unfold dest_fn x = unfold0 dest_fn x []
 
-(* ** TEST FUNCTIONS ** *)
+(* ** FUNZIONI DI TEST ** *)
 
-(* This section is for functions that take a test function (i.e. a function   *)
-(* that returns a boolean) as an argument.                                    *)
+(* Questa sezione è per funzioni che prendono una funzione di test (cioé una  *)
+(* funzione che restituisce un booleano) come argomento                       *)
 
                                                                           
-// find : ('a -> bool) -> 'a list -> 'a                               
+//  find : ('a -> bool) -> 'a list -> 'a                               
 //                                                                    
-///Returns the first item of the supplied list satisfying a given test
-///function. Fails if no such item exists.
+/// Restituisce il primo elemento della lista fornita che soddisfa una data 
+/// funzione di test. Fallisce se un tale elemento non esiste.
 let rec find p xs =
     match xs with
     x0::xs0 -> if (p x0) then x0
                             else find p xs0
     | []      -> hol_fail ("find","No match")
 
-// filter : ('a -> bool) -> 'a list -> 'a list                       
+//  filter : ('a -> bool) -> 'a list -> 'a list                       
 //                                                                   
-///Removes all items of the supplied list not satisfying a given test function.  
+/// Rimuove tutti gli elementi della lista fornita che non soddisfano una data 
+/// funzione di test.
 let rec filter p xs =
     match xs with
     x0::xs0 -> if (p x0) then x0::(filter p xs0)
                             else filter p xs0
     | []      -> []
 
-// partition : ('a -> bool) -> 'a list -> 'a list * 'a list                
+//  partition : ('a -> bool) -> 'a list -> 'a list * 'a list                
 //                                                                         
-///Separates the supplied list into two lists, for those items respectively
-///satisfying and not satisfying a given test function.
+/// Separa la lista fornita in due lista, per quegli elementi che rispettivamente 
+/// soddisfano e non soddisfano una data funzione di test.
 let rec partition p xs =
     match xs with
     x0::xs0 -> let (ys,zs) = partition p xs0 in
@@ -651,224 +655,227 @@ let rec partition p xs =
                             else (ys, x0::zs)
     | []      -> ([], [])
                                                                          
-// exists : ('a -> bool) -> 'a list -> bool                          
+//  exists : ('a -> bool) -> 'a list -> bool                          
 //                                                                   
-///Returns "true" iff there is at least one item in the supplied list
-///satisfying a given test function.
+/// Restituisce "true" sse c'è almento un elemento nella lista fornita 
+/// che soddisfa una data funzione di test.
 let rec exists p xs =
     match xs with
     x0::xs0 -> (p x0) || (exists p xs0)
     | []      -> false
 
-// forall : ('a -> bool) -> 'a list -> bool                                 
+//  forall : ('a -> bool) -> 'a list -> bool                                 
 //                                                                          
-///Returns "true" iff every item in the supplied list satisfies a given test
-///function.
+/// Restituisce "true" sse ogni elemento nella lista fornita soddisfa una data 
+/// funzione di test.
 let rec forall p xs =
     match xs with
     x0::xs0 -> (p x0) && (forall p xs0)
     | []      -> true
 
-/// Tests if corresponding elements of two lists all satisfy a relation.
-// OPTIMIZE : Make this an alias for List.forall2.
+//  forall2 : ('a -> bool) -> 'a list -> 'a list -> bool                                 
+//   
+//  OPTIMIZE : Make this an alias for List.forall2.
+/// Testa se gli elementi corrispondenti di due liste soddisfano tutte una relazionze.
 let rec forall2 p l1 l2 = 
     match (l1, l2) with
     | [], [] -> true
     | (h1 :: t1, h2 :: t2) -> p h1 h2 && forall2 p t1 t2
     | _ -> false
 
-(* ** ASSOCIATION LISTS ** *)
+(* ** LISTE DI ASSOCIAZIONE ** *)
 
-(* This section is for functions that operate on association lists.  An       *)
-(* association list is very simple representation of a lookup table as a list *)
-(* of pairs.  Either the left or right component of a pair can be used as the *)
-(* key.                                                                       *)
+(* Questa sezione è per funzioni che operano su liste di associazione. Una lista   *)
+(* di associazione è una rappresentazione molto semplice di una tabella di lookup  *)
+(* sotto forma di una lista di coppie. Sia il componente sinistro sia quello       *)
+(* destro possono essere usati come la chiave.                                     *)
 
-
-// assoc : 'a -> ('a * 'b) list -> 'b when 'a : equality                                     
+//  assoc : 'a -> ('a * 'b) list -> 'b when 'a : equality                                     
 //                                                                           
-///Returns the right component of the first pair in the    
-///supplied list whose left component equals the supplied value. Fails
-///if cannot find such a pair.
+/// Restituisce il componente destro della prima coppia nella lista fornita il cui 
+/// componente sinistro è uguale al valore fornito. Fallisce se non può trovare una 
+/// tale coppia.
 let rec assoc x xys =
     match xys with
     |(x0,y0)::xys0 -> if (x = x0) then y0
                         else assoc x xys0
     | []            -> hol_fail ("assoc","No match")
 
-// inv_assoc : 'b -> ('a * 'b) list -> 'a when 'b : equality                                    
+//  inv_assoc : 'b -> ('a * 'b) list -> 'a when 'b : equality                                    
 //                                                                           
-///Returns the left component of the first pair in the    
-///supplied list whose right component equals the supplied value. Fails
-///if cannot find such a pair.                                               
+/// Restituisce il componente sinistro della prima coppia nella lista fornita il cui 
+/// componente destro è uguale al valore fornito. Fallisce se non può trovare una 
+/// tale coppia.                                       
 let rec inv_assoc y xys =
     match xys with
     (x0,y0)::xys0 -> if (y = y0) then x0
                         else inv_assoc y xys0
     | []            -> hol_fail ("inv_assoc","No match")
 
-// fst_map : ('a -> 'c) -> ('a * 'b) list -> ('c * 'b) list
+//  fst_map : ('a -> 'c) -> ('a * 'b) list -> ('c * 'b) list
 //                                                         
-///Applies the supplied function to the left component of each pair 
-///in the supplied list of pairs.
+/// Applica la funzione fornita al componente sinistro di ciascuna coppia 
+/// nella lista di coppie fornita.
 let fst_map f xys = map (fun (x,y) -> (f x, y)) xys
 
-// snd_map : ('b -> 'c) -> ('a * 'b) list -> ('a * 'c) list                 
+//  snd_map : ('b -> 'c) -> ('a * 'b) list -> ('a * 'c) list                 
 //                                                                          
-///Applies the supplied function to the right component of each pair 
-///in the supplied list of pairs.                              
+/// Applica la funzione fornita al componente destro di ciascuna coppia 
+/// nella lista di coppie fornita.
 let snd_map f xys = map (fun (x,y) -> (x, f y)) xys
 
-// fst_filter : ('a -> bool) -> ('a * 'b) list -> ('a * 'b) list             
+//  fst_filter : ('a -> bool) -> ('a * 'b) list -> ('a * 'b) list             
 //                                                                           
-///Filters out items from the supplied list of pairs with a left component 
-///that returns false for the supplied test function.
+/// Elimina dalla lista di coppie fornita gli elementi con un componente 
+/// sinistro che restituisce falso per la funzione di test fornita.
 let fst_filter p xys = filter (fun (x,y) -> p x) xys
 
-// snd_filter : ('b -> bool) -> ('a * 'b) list -> ('a * 'b) list             
+//  snd_filter : ('b -> bool) -> ('a * 'b) list -> ('a * 'b) list             
 //                                                                           
-///Filters out items from the supplied list of pairs with a right component 
-///that returns false for the supplied test function.
+/// Elimina dalla lista di coppie fornita gli elementi con un componente 
+/// destro che restituisce falso per la funzione di test fornita.
 let snd_filter p xys = filter (fun (x,y) -> p y) xys
 
-(* ** UNIT VALUED FUNCTIONS ** *)
+(* ** FUNZIONI CON VALORE UNIT ** *)
 
-(* This section is for functions that operate using unit-valued functions.    *)
+(* Questa sezione è per funzioni che operano usando funzioni con valore unit. *)
 
-
-// do_map : ('a -> unit) -> 'a list -> unit                             
+//  do_map : ('a -> unit) -> 'a list -> unit                             
 //                                                                      
-///Applies the supplied unit-valued function in turn to each item of the
-///supplied list, returning unit.
+/// Applica la funzione con valore unit fornita a turno su ciascun elemento della 
+/// lista fornita, restituendo a sua volta unit.
 let rec do_map f xs =
     match xs with
     x0::xs0 -> (f x0; do_map f xs0)
     | []      -> ()
 
-(* ** UNORDERED SETS ** *)
+(* ** INSIEMI NON ORDINATI ** *)
 
-(* This section is for functions that perform set-like operations on lists,   *)
-(* where operations work modulo the set of items that occur in a list.        *)
-(* Nothing, such as the order of list items or whether there are repeats, is  *)
-(* assumed about the input lists, but if an input does have repeated items,   *)
-(* then the output may also.                                                  *)
+(* Questa sezione definisce funzioni che eseguono operazioni insiemistiche su  *)
+(* liste, dove le operazioni lavorano sull'insieme di elementi che occorrono   *)
+(* in una lista. Non si assume nulla circa l'ordine degli elementi o se ci     *)
+(* sono ripetizioni nella lista di input, ma se un input ha degli elementi     *)
+(* ripetuti, allora anche l'output potrebbe averli.                            *)
 
-(* Two versions of each operation are defined: one where items are considered *)
-(* equal wrt classic ML equality, and one where items are considered equal    *)
-(* wrt a supplied comparison function argument.                               *)
+(* Per ciascuna operazione sono definite due versioni: una in cui gli elementi *)
+(* sono considerati rispetto all'eguaglianza di default del linguaggio, e una  *)
+(* in cui gli elementi sono considerati rispetto a una funzione di confronto   *)
+(* fornita come argomento.                                                     *)
 
 
-// mem : 'a -> 'a list -> bool when 'a : equality  
+//  mem : 'a -> 'a list -> bool when 'a : equality  
 //                                                              
-///Returns "true" iff the supplied item is in the supplied list.
+/// Restituisce "true" sse l'elemento fornito è nella lista fornita.
 let rec mem x xs =
     match xs with
     x0::xs0 -> (x = x0) || (mem x xs0)
     | []      -> false
 
-// mem' : ('a -> 'b -> bool) -> 'a -> 'b list -> bool           
+//  mem' : ('a -> 'b -> bool) -> 'a -> 'b list -> bool           
 //                                                              
-///Returns "true" iff the supplied item is in the supplied list 
-///wrt a supplied comparison function argument.
+/// Restituisce "true" sse l'elemento fornito è nella lista fornita rispetto 
+/// a una funzione di confronto passata come argomento.
 let rec mem' eq x xs =
     match xs with
     x0::xs0 -> (eq x x0) || (mem' eq x xs0)
     | []      -> false
 
-// insert : 'a -> 'a list -> 'a list when 'a : equality           
+//  insert : 'a -> 'a list -> 'a list when 'a : equality           
 //                                                                        
-///Adds the supplied item to the supplied list unless it is already in the list.
+/// Aggiunge l'elemento fornito alla lista fornita a meno che sia già nella lista.
 let insert x xs =
     if (mem x xs)
     then xs
     else x::xs
 
-// insert' : ('a -> 'a -> bool) -> 'a -> 'a list -> 'a list           
+//  insert' : ('a -> 'a -> bool) -> 'a -> 'a list -> 'a list           
 //                                                                        
-///Adds the supplied item to the supplied list unless it is already in the list.
-///wrt a supplied comparison function argument.
+/// Aggiunge l'elemento fornto alla lista fornita a meno che sia già nella lista 
+/// rispetto a una funzione di confronto fornita come argomento.
 let insert' eq x xs =
     if (mem' eq x xs)
     then xs
     else x::xs
 
-// setify : 'a list -> 'a list when 'a : equality                       
+//  setify : 'a list -> 'a list when 'a : equality                       
 //                                                    
-///Removes any duplicate items from the supplied list.
+/// Rimuove ogni duplicazioni di elementi dalla lista fornita.
 let setify xs = rev (foldl (swap_arg insert) [] xs)
 
-// setify' : ('a -> 'a -> bool) -> 'a list -> 'a list 
+//  setify' : ('a -> 'a -> bool) -> 'a list -> 'a list 
 //                                                    
-///Removes any duplicate items from the supplied list.
-///wrt a supplied comparison function argument.
+/// Rimuove ogni duplicazione di elementi dalla lista fornita 
+/// rispetto a una funzione di confronto fornita come argomento.
 let setify' eq xs = rev (foldl (swap_arg (insert' eq)) [] xs)
 
-// union : 'a list -> 'a list -> 'a list when 'a : equality                                    
+//  union : 'a list -> 'a list -> 'a list when 'a : equality                                    
 //                                                                         
-///Creates a list of items that occur in either of the two supplied lists.
+/// Crea una lista di elementi che occorrono in almeno una delle liste fornite.
 let union xs1 xs2 = foldr insert xs1 xs2
 
-// union' : ('a -> 'a -> bool) -> 'a list -> 'a list -> 'a list                                   
+//  union' : ('a -> 'a -> bool) -> 'a list -> 'a list -> 'a list                                   
 //                                                                         
-///Creates a list of items that occur in either of the two supplied lists
-///wrt a supplied comparison function argument.
+/// Crea una lista di elementi che occorrono in almeno una delle liste fornite 
+/// rispetto a una funzione di confronto fornita come argomento.
 let union' eq xs1 xs2 = foldr (insert' eq) xs1 xs2
 
-// unions : 'a list list -> 'a list when 'a : equality  
+//  unions : 'a list list -> 'a list when 'a : equality  
 //                                                                       
-///Creates a list of items that occur in any list in the supplied list of
-///lists.
+/// Crea una lista di elementi che occorrono in almeno una delle liste all'interno  
+/// della lista di liste fornita.
 let unions xss =
     match xss with
     [] -> []
     | _  -> foldl1 union xss
 
-// unions' : ('a -> 'a -> bool) -> 'a list list -> 'a list 
+//  unions' : ('a -> 'a -> bool) -> 'a list list -> 'a list 
 //                                                                       
-///Creates a list of items that occur in any list in the supplied list of
-///lists wrt a supplied comparison function argument.
+/// Crea una lista di elementi che occorrono in almeno una delle liste all'interno  
+/// della lista di liste fornita rispetto a una funzione di confronto fornita come 
+/// argomento.
 let unions' eq xss =
     match xss with
     [] -> []
     | _  -> foldl1 (union' eq) xss
 
-// intersect : 'a list -> 'a list -> 'a list when 'a : equality    
+//  intersect : 'a list -> 'a list -> 'a list when 'a : equality    
 //                                                                      
-///Creates a list of items that occur in both of the two supplied lists.
+/// Crea una lista di elementi che occorrono in ciasuna delle due liste fornite.
 let intersect xs1 xs2 = filter (fun x -> mem x xs2) xs1
                    
-// intersect' : ('a -> 'b -> bool) -> 'a list -> 'b list -> 'a list     
+//  intersect' : ('a -> 'b -> bool) -> 'a list -> 'b list -> 'a list     
 //                                                                      
-///Creates a list of items that occur in both of the two supplied lists
-///wrt a supplied comparison function argument.
+/// Crea una lista di elementi che occorrono in ciasuna delle due liste fornite 
+/// rispetto a una funzione di confronto fornita come argomento.
 let intersect' eq xs1 xs2 = filter (fun x -> mem' eq x xs2) xs1
 
-// subtract : 'a list -> 'a list -> 'a list when 'a : equality        
+//  subtract : 'a list -> 'a list -> 'a list when 'a : equality        
 //                                                                          
-///Removes items from the first supplied list that also occur in the second.
+/// Rimuove dalla prima lista fornita gli elmenti che occorrono anche nella 
+/// seconda.
 let subtract xs1 xs2 = filter (fun x1 -> not (mem x1 xs2)) xs1
 
-// subtract' : ('a -> 'b -> bool) -> 'a list -> 'b list -> 'a list          
+//  subtract' : ('a -> 'b -> bool) -> 'a list -> 'b list -> 'a list          
 //                                                                          
-///Removes items from the first supplied list that also occur in the second 
-///wrt a supplied comparison function argument.
+/// Rimuove dalla prima lista fornita gli elmenti che occorrono anche nella 
+/// seconda rispetto a una funzione di confronto fornita come argomento.
 let subtract' eq xs1 xs2 = filter (fun x1 -> not (mem' eq x1 xs2)) xs1
 
-// subset : 'a list -> 'a list -> bool when 'a : equality                                      
+//  subset : 'a list -> 'a list -> bool when 'a : equality                                      
 //                                                                          
-///Returns "true" iff all items in the first supplied list also occur in the
-///second.
+/// Restituisce "true" sse tutti gli elementi nella prima lista fornita occorrono 
+/// anche nella seconda.
 let subset xs1 xs2 = forall (fun x1 -> mem x1 xs2) xs1
 
-// subset' : ('a -> 'b -> bool) -> 'a list -> 'b list -> bool               
+//  subset' : ('a -> 'b -> bool) -> 'a list -> 'b list -> bool               
 //                                                                          
-///Returns "true" iff all items in the first supplied list also occur in the
-///second wrt a supplied comparison function argument.                                                           
+/// Restituisce "true" sse tutti gli elementi nella prima lista fornita occorrono 
+/// anche nella seconda rispetto a una funzione di confronto fornita come argomento.                                                      
 let subset' eq xs1 xs2 = forall (fun x1 -> mem' eq x1 xs2) xs1
 
-// disjoint : 'a list -> 'a list -> bool                               
+//  disjoint : 'a list -> 'a list -> bool                               
 //                                                                     
-///Returns "true" iff there are no items common to both supplied lists.
+/// Restituisce "true" sse non ci sono elementi in comune tra le due liste fornite.
 let rec disjoint xs ys =
     match (xs,ys) with
     (_     , []) -> true
@@ -877,10 +884,10 @@ let rec disjoint xs ys =
                         else disjoint xs0 ys
     | ([]    , _ ) -> true
 
-// disjoint' : ('a -> 'b -> bool) -> 'a list -> 'b list -> bool        
+//  disjoint' : ('a -> 'b -> bool) -> 'a list -> 'b list -> bool        
 //                                                                     
-///Returns "true" iff there are no items common to both supplied lists 
-///wrt a supplied comparison function argument.
+/// Restituisce "true" sse non ci sono elementi in comune tra le due liste fornite 
+/// rispetto a una funzione di confronto fornita come argomento.
 let rec disjoint' eq xs ys =
     match (xs,ys) with
     (_     , []) -> true
@@ -889,59 +896,61 @@ let rec disjoint' eq xs ys =
                         else disjoint' eq xs0 ys
     | ([]    , _ ) -> true
 
-// set_eq : 'a list -> 'a list -> bool 
+//  set_eq : 'a list -> 'a list -> bool 
 //                                                              
-///Returns "true" iff the two supplied lists have the same items
-///(disregarding duplicates).
+/// Restituisce "true" sse le due liste fornite hanno gli stessi 
+/// elementi (senza considerare però elementi eventuali duplicati).
 let set_eq xs1 xs2 = (subset xs1 xs2) && (subset xs2 xs1)
                       
-// set_eq' : ('a -> 'a -> bool) -> 'a list -> 'a list -> bool   
+//  set_eq' : ('a -> 'a -> bool) -> 'a list -> 'a list -> bool   
 //                                                              
-///Returns "true" iff the two supplied lists have the same items
-///(disregarding duplicates) wrt a supplied comparison function argument.                            
+/// Restituisce "true" sse le due liste fornite hanno gli stessi 
+/// elementi (senza considerare però elementi eventuali duplicati)
+/// rispetto a una funzione di confronto fornita come argomento.                     
 let set_eq' eq xs1 xs2 = (subset' eq xs1 xs2) && (subset' eq xs2 xs1)
 
-    
+/// Funzione tail ricorsiva a supporto della definizione di no_dups
 let rec no_dups0 xs0 xs =
     match xs with
     []      -> true
     | x1::xs2 -> not (mem x1 xs0) && (no_dups0 (x1::xs0) xs2)
 
-// no_dups : 'a list -> bool                                   
+//  no_dups : 'a list -> bool                                   
 //                                                             
-///Returns "true" iff the supplied list contains no duplicates.
+/// Restituisce "true" sse la lista fornita non contiene duplicati.
 let no_dups xs = no_dups0 [] xs
 
+/// Funzione tail ricorsiva a supporto della definizione di no_dups'
 let rec no_dups0' eq xs0 xs =
     match xs with
     []      -> true
     | x1::xs2 -> not (mem' eq x1 xs0) && (no_dups0' eq (x1::xs0) xs2)
 
-// no_dups' : ('a-> 'a -> bool) -> 'a list -> bool                
+//  no_dups' : ('a-> 'a -> bool) -> 'a list -> bool                
 //                                                             
-///Returns "true" iff the supplied list contains no duplicates 
-///wrt a supplied comparison function argument. 
+/// Restituisce "true" sse la lista fornita non contiene duplicati
+/// rispetto a una funzione di confronto fornita come argomento.
 let no_dups' eq xs = no_dups0' eq [] xs
 
-(* ** CHARACTERS AND STRINGS ** *)
+(* ** CARATTERI E SRTINGHE ** *)
 
-(* This section is for functions that operate on characters or strings.       *)
+(* Questa sezione è per funzioni che operano su caratteri o stringhe.         *)
 
 
-// string_of_int : int -> string                             
+//  string_of_int : int -> string                             
 //                                                           
-///Returns the string representation of the supplied integer.
+/// Restituisce la rappresentazione sotto forma di stringa dell'intero fornito
 let string_of_int = Pervasives.string_of_int
 
-// char_implode : char list -> string              
-//                                                 
-///Joins a list of characters into a single string.
+//  char_implode : char list -> string              
+//
+/// Concatena una lista di caratteri in una singola stringa.
 let char_implode (cs : char list) =
     cs |> List.fold (fun acc elem -> acc + elem.ToString()) ""
 
-// char_explode : string -> char list            
+//  char_explode : string -> char list            
 //                                               
-///Breaks up a string into a list of characters.
+/// Divide una stringa in una lista di caratteri.
 let char_explode (x:string) =
     let rec foo n cs =
         if (n < 0) then cs
@@ -949,34 +958,34 @@ let char_explode (x:string) =
                         foo (n-1) (c::cs) in
     foo (String.length x - 1) []
 
-// implode : string list -> string                
+//  implode : string list -> string                
 //                                                
-///Joins a list of strings into a single string.
+/// Concatena una lista di stringhe in una singola stringa.
 let implode xs =
     if (is_nonempty xs) then foldl1 (^) xs
                         else ""
 
-// explode : string -> string list                              
+//  explode : string -> string list                              
 //                                                              
-///Breaks up a string into a list of single-character strings.
+/// Divide una stringa in una lista di stringhe da un solo carattere.
 let explode x =
     map (fun c -> c.ToString()) (char_explode x)
 
-// string_variant : string list -> string -> string                          
+//  string_variant : string list -> string -> string                          
 //                                                                           
-///Creates a variant of the supplied string by appending apostrophes to its  
-///end until it avoids any string in the supplied avoidance list.  Does not  
-///append any apostrophes if the original string already avoids the avoidance
-///list.
+/// Crea una variante della stringa fornita appendendo in fondo ad essa degli 
+/// apostrofi fino a quando è diversa da ogni stringa all'interno della lista 
+/// di stringhe da evitare fornita come argomento. Non appende alcun apostrofo 
+/// se la stringa originale è già diversa da ognuna delle stringhe da evitare.
 let rec string_variant xs0 x =
     if (mem x xs0)
     then string_variant xs0 (x + "'")
     else x
 
-// quote0 : string -> string                                           
+//  quote0 : string -> string                                           
 //                                                                     
-///Puts single-quotes around the supplied string. Does not perform any
-///escaping of special characters.
+/// Mette degli apici singoli intorno alla stringa fornita. Non esegue 
+/// alcun escape di caratteri speciali.
 let quote0 x = "'" + x + "'"
 
 let char_escape c =
@@ -991,49 +1000,44 @@ let char_escape c =
             | 2 -> "\\0" + x
             | _ -> "\\" + x
 
-//quote : string -> string                                                  
+//  quote : string -> string                                                  
 //                                                                          
-///Puts double-quotes around the supplied string, backslash-escapes          
-///backslashes and double-quotes, and uses ASCII codes for backquotes and    
-///unprintable characters. 
-///Note that it is not enough to entrust OCaml's 'String.escaped' to do the  
-///escaping, because exactly what gets escaped can be sensitive to the system
-///environment.  Also, 'String.escaped' does not escape backquotes, which are
-///used as delimeters for term/type quotations.                              
+/// Aggiunge dei doppi-apici intorno alla stringa fornita, aggiunge dei backslash   
+/// per l'escape dei backslash e dei doppi apici, e usa i codici ASCII per backquotes 
+/// e caratteri non stampabili.
 let quote x =
     let x1 = (implode <* (map char_escape) <* char_explode) x in
     "\"" + x1 + "\""
 
 (* ** REPORTING ** *)
 
-(* This section is for functions that output messages to standard output.     *)
+(* Questa sezione è per funzioni che emettono messaggi sullo standard output  *)
 
 
-// report : string -> unit                                                 
+//  report : string -> unit                                                 
 //                                                                         
-///Outputs the supplied string prepended with "[HZ] " to standard output,  
-///followed by a full stop and newline, and then flushes the output stream.
+/// Emette sullo standard output la stringa fornita come argomento preceduta 
+/// dal prefisso "[HZ] " e seguita da un punto e una nuova riga. Il prefisso 
+/// "[HZ] " serve a identificare i messaggi restituiti dal programma e 
+/// distinguerli dai messaggi standard di .NET.
 let report x = printfn "[HZ] %s." x
-//      (print_string ("[HZ] " + x + ".\n");
-//       flush stdout)
 
-// warn : string -> unit                                                    
+//  warn : string -> unit                                                    
 //                                                                          
-///Outputs the supplied string prepended with "[HZ] Warning - " to standard 
-///output, followed by a full stop and newline, and then flushes the output 
-///stream.
+/// Emette sullo standard output la stringa fornita come argomento preceduta 
+/// dal prefisso "[HZ] Warning - " e seguita da un punto e da una nuova riga.
+/// Il prefisso "[HZ] Warning - " identifica i warning emessi dal programma.
 let warn x = report ("WARNING: " + x)
 
-(* ** SORTING ** *)
+(* ** ORDINAMENTO ** *)
 
-(* This section is for functions that return lists sorted according to a      *)
-(* given total order function.                                                *)
+(* Questa sezione è per funzioni che restituiscono liste ordinate secondo una *)
+(* data funzione di ordinamento totale.                                       *)
 
-
-// merge : ('a -> 'a -> bool) -> 'a list -> 'a list -> 'a list         
+//  merge : ('a -> 'a -> bool) -> 'a list -> 'a list -> 'a list         
 //                                                                     
-///Merges the two supplied sorted lists into a single sorted list, with
-///respect to the supplied total order relation.
+/// Fa il merge delle due liste ordinate fornite in un'unica lista ordinata, 
+/// rispetto alla relazione di ordinamento totale fornita.
 let rec merge r xs ys =
     match (xs,ys) with
     (x0::xs0, y0::ys0) -> if (r x0 y0)
@@ -1042,10 +1046,10 @@ let rec merge r xs ys =
     | (_      , []     ) -> xs
     | ([]     , _      ) -> ys
 
-// mergesort : ('a -> 'a -> bool) -> 'a list -> 'a list                   
+//  mergesort : ('a -> 'a -> bool) -> 'a list -> 'a list                   
 //                                                                        
-///Sorts the supplied list using the merge technique, with respect to the 
-///supplied total order relation.
+/// Ordina la lista fornita usando la tecnica del merge, rispetto alla relazione 
+/// di orinamento totale fornita.
 let mergesort r xs =
     let rec mergepairs yss xss =
         match (yss,xss) with

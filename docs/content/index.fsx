@@ -1,7 +1,7 @@
 (*** hide ***)
 // This block of code is omitted in the generated HTML documentation. Use 
 // it to define helpers that you do not want to show in the documentation.
-#I "../../bin"
+#I "../../../bin"
 
 (**
 NHolZ
@@ -27,7 +27,8 @@ e disponibile al link http://github.com/jack-pappas/fsharp-logic-examples.
 
  1. [Introduzione a HOL](introduzione_a_hol.html)
  2. [Termini, Tipi e Teoremi](termini_tipi_teoremi.html): le espressioni nel linguaggio HOL.
- 2. [Tattiche](tactics.html): un'implementazione sperimentale di tattiche di dimostrazione.
+ 3. [Tattiche](tactics.html): un'implementazione sperimentale di tattiche di dimostrazione.
+ 3. [Il codice](code/index.html): appunti sul codice modulo per modulo.
 
   * [API Reference](reference/index.html) contains automatically generated documentation for all types, modules
    and functions in the library. This includes additional brief samples on using most of the

@@ -13,9 +13,9 @@
 (* http://github.com/domasin/HolZeroFs                                        *)
 (* ========================================================================== *)
 
-///Questo modulo costituisce una libreria di operazioni su alberi dinamici 
-///di ricerca - alberi binari auto-bilanciati che memorizzano informazioni 
-///su nodi ordinati in base a un indice rispetto alla relazione (<)
+/// Questo modulo costituisce una libreria di operazioni su alberi dinamici 
+/// di ricerca - alberi binari auto-bilanciati che memorizzano informazioni 
+/// su nodi ordinati in base a un indice rispetto alla relazione (<).
 [<AutoOpen>]
 module NHolZ.DLTree
 
@@ -27,7 +27,7 @@ module NHolZ.DLTree
 (* inserimento e cancellazione che nel peggiore dei casi hanno complessità    *)
 (* di tempo/spazio pari a O(log n)                                            *)
 
-(* AA trees *)
+(* Alberi AA *)
 
 (* Gli alberi AA sono una variante dei classici alberi binari di ricerca che  *)
 (* mantengono una proprietà invariante aggiuntiva, chiamata "invariante AA",  *)
@@ -45,13 +45,13 @@ module NHolZ.DLTree
 (*    suoi nonni.                                                             *)
 
 (* Così il livello rappresenta la distanza dal nodo alla foglia più a         *)
-(* più a sinistra discendente del nodo, e un limite superiore di metà della   *)
+(* sinistra discendente dal nodo, e un limite superiore di metà della         *)
 (* distanza dal nodo alla sua foglia discendente più a destra. Così il        *)
-(* livelloè un limite superiore di metà della profonodità dell'albero, ed è   *)
+(* livello è un limite superiore di metà della profonodità dell'albero, ed è  *)
 (* anche un limite superiore per la differenza tra le profondità delle foglie *)
 (* più profonde e di quelle meno profonde.                                    *)
 
-(* Le operazioni di inserimento e la cancellazione preservano l'invariante AA *)
+(* Le operazioni di inserimento e cancellazione preservano l'invariante AA    *)
 (* applicando una combinazione di due operazioni di ribilanciamento - "skew"  *)
 (* e "split" - una volta che un elemento è stato inserito/cancellato. Skew e  *)
 (* split hanno entrambe una complessità tempo/spazio O(1), e il numero di     *)
@@ -61,92 +61,97 @@ module NHolZ.DLTree
 (* dipende dal fatto che sia stata eseguita una cancellazione oppure un       *)
 (* inserimento.                                                               *)
 
-(* Si noti che per assicurare una corretta funzionalità (ovvero che le voci   *)
+(* Si noti che per assicurare una corretta funzionalità (cioè che le voci     *)
 (* possano essere cercate in base agli inserimenti e alle cancellazioni che   *)
 (* sono avvenute), è sufficiente che le operazioni di inserimento e cancella- *)
 (* zione preservino un corretto ordinamento rispetto a '(<)' nell'albero di   *)
-(* ricerca binario classico. Ovvero, l'invariante AA è puramente per          *)
-(* efficienza, piuttosto che per correttezza. Si noti inoltre che le tre      *)
+(* ricerca binario classico. In altre parole, l'invariante AA è puramente per *)
+(* efficienza, piuttosto che per correttezza. Si noti inoltre che le due      *)
 (* operazioni di ribilanciamento preservano tutte un corretto ordinamento.    *)
 
-(* dltree datatype *)
+(* Il datatype dltree *)
 
-///The 'dltree' datatype is a binary lookup tree datatype, where an index and 
-///item are held at each node, and leaves hold no information.  Comparison    
-///between indexes is done using the polymorphic '(<)' total order relation.  
-///Each node also holds an integer for its AA level, to enable the AA         
-///invariant to be maintained.  Note that there is no need for leaves to hold 
-///their level because it is always 0.
+/// Il datatype 'dltree' è un datatype di albero di ricerca binario, dove ad 
+/// ogni nodo sono mantenuti un indice e un elemento, e le foglie non hanno 
+/// alcuna informazione. Il confronto tra indici è fatto usando la relazione 
+/// di oridinamento totale polimorfica '(<)'. Ogni nodo mantiene anche un 
+/// intero per il suo livello AA, per poter mantenere l'invariante AA. Si noti 
+/// che non c'è alcuna necessità che le foglie mantengano il proprio livello 
+/// perché esso è sempre 0.
 type dltree<'a,'b> =
     | Node of int * ('a * 'b) * dltree<'a,'b> * dltree<'a,'b>
     | Leaf
 
-// dltree_empty : dltree<'a,'b>
+//  dltree_empty : dltree<'a,'b>
 //                              
-///Returns a fresh empty dltree.
+/// Restituisce un nuovo dltree vuoto.
 let dltree_empty = Leaf
 
-let rec dltree_elems0 tr xys0 =
-    match tr with
-    Node (_,xy,tr1,tr2) -> dltree_elems0 tr1 (xy::(dltree_elems0 tr2 xys0))
-    | Leaf                -> xys0
-
-// dltree_elems : dltree<'a,'b> -> ('a * 'b) list                         
+//  dltree_elems : dltree<'a,'b> -> ('a * 'b) list                         
 //                                                                         
-///This converts the information held in a given lookup tree into an index-ordered
-///association list.                                               
-let dltree_elems tr = dltree_elems0 tr []
+/// Converte l'informazione mantenuta in un dato albero di ricerca 
+/// binario in una lista di associazione ordinata per indice.                                   
+let dltree_elems tr = 
+    /// Funzione tail-ricorsiva a supporto della definizione di dltree_elems
+    let rec dltree_elems0 tr xys0 =
+        match tr with
+        | Node (_,xy,tr1,tr2) -> dltree_elems0 tr1 (xy::(dltree_elems0 tr2 xys0))
+        | Leaf                -> xys0
+    dltree_elems0 tr []
 
-(* Basic subtree operations *)
+(* Operazioni base sui sottoalberi *)
 
-// level : dltree<'a,'b> -> int
+//  level : dltree<'a,'b> -> int
 //
-///Returns the level of the tree.
+/// Restituisce il livello dell'albero.
 let level tr =
     match tr with
-    Node (l,_,_,_) -> l
+    | Node (l,_,_,_) -> l
     | Leaf           -> 0
 
-// rightmost_elem: 'a * 'b -> dltree<'a,'b> -> 'a * 'b
+//  rightmost_elem: 'a * 'b -> dltree<'a,'b> -> 'a * 'b
 //
-///Returns the rightmost node in the tree as a pair. If the tree is just a Leaf, 
-///than it has no nodes and in this case the function returns just the pair in input.
+/// Restituisce come una coppia il nodo più a destra nell'albero. 
+/// Se l'albero è solo una Leaf, allora non ha nodi e in questo 
+/// caso la funzione restituisce solo la coppia in input.
 let rec rightmost_elem xy0 tr =
     match tr with
-    Node (_,xy,_,tr2) -> rightmost_elem xy tr2
+    | Node (_,xy,_,tr2) -> rightmost_elem xy tr2
     | Leaf              -> xy0
 
-// right_app: (dltree<'a,'b> -> dltree<'a,'b>) -> dltree<'a,'b> -> dltree<'a,'b>
+//  right_app: (dltree<'a,'b> -> dltree<'a,'b>) -> dltree<'a,'b> -> dltree<'a,'b>
 //
-///Applies a function to the rightmost node of a tree.
+/// Applica una funzione al primo nodo più a destra di un albero.
 let right_app f tr =
     match tr with
-    Node (l,xy,tr1,tr2)
-        -> Node (l, xy, tr1, f tr2)
-    | _  -> tr
+    | Node (l,xy,tr1,tr2)   -> Node (l, xy, tr1, f tr2)
+    | _                     -> tr
 
-// decrease_level: int -> dltree<'a,'b> -> dltree<'a,'b>
+//  decrease_level: int -> dltree<'a,'b> -> dltree<'a,'b>
 //
-///Decreases the level of the root of a tree to a given lower level. If the given level is 
-///equal or greater than the original level the tree remains unchanged.
+/// Decresce il livello della radice di un albero a un dato livello più basso. 
+/// Se il livello dato è maggiore o uguale al livello originario l'alebro rimane 
+/// invariato.
 let decrease_level l' tr =
     match tr with
-    Node (l,xy,tr1,tr2) when (l > l')
-        -> Node (l',xy,tr1,tr2)
+    | Node (l,xy,tr1,tr2) when (l > l') -> Node (l',xy,tr1,tr2)
     | _  -> tr
 
 (* skew *)
 
-// skew : dltree<'a,'b> -> dltree<'a,'b>
+//  skew : dltree<'a,'b> -> dltree<'a,'b>
 //
-///The skew operation performs a single right rotation to rebalance when the
-///left child has the same level as its parent.                             
-//                                                                         
-//          D[n]                     B[n]                                  
-//         /    \                   /    \                                 
-//       B[n]  E[..]     -->     A[..]  D[n]                               
-//      /   \                           /   \                              
+/// L'operazione skew esegue una singola rotazione a destra per
+/// ribilanciare quando il figlio sinistro ha lo stesso livello
+/// del suo padre.     
+//   
+//
+//          D[n]                     B[n]
+//         /    \                   /    \
+//       B[n]  E[..]     -->     A[..]  D[n]
+//      /   \                           /   \
 //   A[..]  C[..]                    C[..]  E[..]
+//      
 let skew tr =
     match tr with
     Node (l, xy, Node (l1,xy1,tr11,tr12), tr2)
@@ -158,11 +163,12 @@ let skew tr =
 
 (* split *)
 
-// split : dltree<'a,'b> -> dltree<'a,'b>
+//  split : dltree<'a,'b> -> dltree<'a,'b>
 //
-///The split operation performs a single left rotation to rebalance when the 
-///right-right grandchild has the same level as its grandparent, incrementing
-///the level of the resulting top-level node.
+/// L'operazione di split esegue una singola rotazione a sinistra per  
+/// ribilanciare quando il nipote destro-destro ha lo stesso livello  
+/// del suo nonno, incrementando il livello del nodo radice risultante.
+//     
 //                                            
 //        B[n]                      D[n+1]    
 //       /    \                     /    \    
@@ -178,71 +184,72 @@ let split tr =
             else tr
     | _  -> tr
 
-// dltree_insert : ('a * 'b) -> dltree<'a,'b> -> dltree<'a,'b> when 'a : comparison             
-//                                                                           
-///This inserts the supplied single indexed item into a given lookup tree.   
-///Fails if the tree already contains an entry for the supplied index.       
-//                                                                           
-// The tree potentially needs to be rebalanced at each node descending to the
-// insertion point, and this can be done by a skew followed by split.        
+// 	dltree_insert : ('a * 'b) -> dltree<'a,'b> -> dltree<'a,'b> when 'a : comparison             
+// 	                                                                          
+/// Inserisce in un dato albero di ricerca un singolo elemento indicizzato.
+/// Fallisce se l'albero contiene già un entry per l'indicie fornito.      
+// 	                                                                          
+//  L'abero potenzialmente ha bisogno di essere ribilanciato ad ogni nodo 
+//  discendente il punto d'inserimento, e questo può essere fatto da uno 
+//  skew seguito da uno split.
 let rec dltree_insert ((x0,_) as xy0) tr =
     match tr with
     Node (l,((x,_) as xy),tr1,tr2)
-        -> let tr' = (* 1. Insert into tree, perserving correct order  *)
+        -> let tr' = (* 1. Inserisci nell'albero, mantenendo il corretto ordinamento  *)
                     if (x0 < x)
-                        then (* Put into left branch     *)
+                        then (* Inserisci nel ramo sinistro     *)
                             Node (l, xy, dltree_insert xy0 tr1, tr2)
                     else if (x < x0)
-                        then (* Put into right branch    *)
+                        then (* Inserisci nel ramo destro    *)
                             Node (l, xy, tr1, dltree_insert xy0 tr2)
-                        else (* Element already in tree  *)
+                        else (* L'elemento è già presente nell'albero  *) 
                             hol_fail ("dltree_insert","Already in tree") in
-            let tr'' = (* 2. Rebalance tree, to preserve AA invariant   *)
-                        (split <* skew) tr' in
+            let tr'' = (* 2. Ribilancia l'albero, mantenendo l'invariante AA   *)
+                        (split <* skew) tr'
             tr''
     | Leaf
-        -> (* Put element here *)
+        -> (* Metti l'elemento qui *)
             Node (1, xy0, Leaf, Leaf)
 
-// dltree_delete : 'a -> dltree<'a,'b> -> dltree<'a,'b> when 'a : comparison                    
-//                                                                           
-///This deletes the entry at the supplied index in a given lookup tree.      
-///Fails if the tree does not contain an entry for the supplied index.       
-// 
-// The tree potentially needs to be rebalanced at each node descending to the
-// deletion point, and this can be done by adjusting the level of the node,  
-// followed by a series of skews and then splits.                            
-//
+//  dltree_delete : 'a -> dltree<'a,'b> -> dltree<'a,'b> when 'a : comparison                    
+//                                                                            
+/// Cancella l'entry all'indice fornito in un dato albero di ricerca. 
+/// Fallisce se l'albero non contiene alcuna entry per l'indice fornito.
+//  
+//  L'albero potenzialmente deve essere bilanciato ad ogni nodo discendente 
+//  rispetto al punto di cancellazione, e questo può essere fatto aggiustando 
+//  il livello del nodo, e facendo seguire una serie di skew e poi di split.
 let rec dltree_delete x0 tr =
     match tr with
     Node (l,((x,_) as xy),tr1,tr2)
-        -> let tr' = (* 1. Delete from tree, perserving correct order  *)
+        -> let tr' = (* 1. Cancella dall'albero, mantenendo l'ordinamento corretto  *)
                     if (x0 < x)
-                        then (* Element should be in left branch *)
+                        then (* L'elemento dovrebbe essere nel ramo sinistro *)
                             Node (l, xy, dltree_delete x0 tr1, tr2)
                     else if (x < x0)
-                        then (* Element should be in right branch *)
+                        then (* L'elemento dovrebbe essere nel ramo destro *)
                             Node (l, xy, tr1, dltree_delete x0 tr2)
-                        else (* Node holds element to be deleted *)
+                        else (* Il nodo contiene l'elemento che deve essere cancellato *)
                             (match (tr1,tr2) with
                                 | (Leaf,_) -> tr2
                                 | (_,Leaf) -> tr1
                                 | _ -> let (x1,_) as xy1 = rightmost_elem xy tr1 in
                                         Node (l, xy1, dltree_delete x1 tr1, tr2)) in
             if (level tr1 < l-1) || (level tr2 < l-1)
-            then (* 2. Rebalance tree, to preserve AA invariant   *)
+            then (* 2. Ribilancia l'albero, per mantenere l'inviariante AA   *)
                     (right_app split <* split <*
                      right_app (right_app skew) <* right_app skew <* skew <*
                      right_app (decrease_level (l-1)) <* decrease_level (l-1)) tr'
             else tr'
     | Leaf
-        -> (* Element not in tree *)
+        -> (* L'elemento non è nell'albero *)
             hol_fail ("dltree_delete","Not in tree")
 
-// dltree_elem : 'a -> dltree<'a,'b> -> 'a * 'b when 'a : comparison                        
+//  dltree_elem : 'a -> dltree<'a,'b> -> 'a * 'b when 'a : comparison                        
 //                                                                       
-///This returns the index and item held at the supplied index in a given 
-///lookup tree.  Fails if the tree has no entry for the supplied index.
+/// Restituisce l'indice e l'elemento mantenuto all'indice fornito in 
+/// un dato albero di ricerca. Fallisce se l'albero non ha entry per 
+/// l'indice fornito.
 let rec dltree_elem x0 tr =
     match tr with
     Node (_, ((x,_) as xy), tr1, tr2)
@@ -251,16 +258,17 @@ let rec dltree_elem x0 tr =
                 else xy
     | Leaf -> hol_fail ("dltree_elem","Not in tree")
 
-// dltree_lookup : 'a -> dltree<'a,'b> -> 'b                            
+//  dltree_lookup : 'a -> dltree<'a,'b> -> 'b                            
 //                                                                         
-///This returns the item held at the supplied index in a given lookup tree.
+/// Restituisce l'elemento mantenuto all'indice fornito in un dato albero 
+/// di ricerca.
 let rec dltree_lookup x0 tr =
     let (_,y) = try2 (dltree_elem x0) tr "dltree_lookup" in
     y
 
-// dltree_mem : 'a -> dltree<'a,'b> -> bool when 'a : comparison                                
+//  dltree_mem : 'a -> dltree<'a,'b> -> bool when 'a : comparison                                
 //                                                                           
-///This returns "true" iff the supplied index occurs in a given lookup tree.
+/// Restituisce "true" sse l'indice fornito occorre in un dato albero di ricerca.
 let rec dltree_mem x0 tr =
     match tr with
     Node (_,(x,_),tr1,tr2)

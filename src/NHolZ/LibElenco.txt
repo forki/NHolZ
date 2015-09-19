@@ -1,0 +1,16 @@
+Elenco
+
+- Gestione dell'eccezioni
+- Funzioni su tuple
+- Funzioni su liste
+- Funzioni su numeri
+- Logica combinatoria
+- Meta funzioni
+- Funzioni di test
+- Liste di associazione
+- Funzioni con valore Unit
+- Insiemi non ordinati
+- Funzioni su caratteri e stringhe --> Manca il commento a char_escape
+- Reporting
+- Ordinamento
+- From NHol: da rimuovere e spostare nella lib2
