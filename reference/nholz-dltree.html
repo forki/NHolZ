@@ -42,7 +42,7 @@
 <div class="xmldoc">
 <p>Questo modulo costituisce una libreria di operazioni su alberi dinamici 
 di ricerca - alberi binari auto-bilanciati che memorizzano informazioni 
-su nodi ordinati in base a un indice rispetto alla relazione (&lt;)</p>
+su nodi ordinati in base a un indice rispetto alla relazione (&lt;).</p>
 
 
 </div>
@@ -59,12 +59,13 @@ su nodi ordinati in base a un indice rispetto alla relazione (&lt;)</p>
           <td class="type-name">
             <a href="nholz-dltree-dltree-2.html">dltree<'a, 'b></a>
           </td>
-          <td class="xmldoc"><p>The 'dltree' datatype is a binary lookup tree datatype, where an index and 
-item are held at each node, and leaves hold no information.  Comparison  <br />
-between indexes is done using the polymorphic '(&lt;)' total order relation.<br />
-Each node also holds an integer for its AA level, to enable the AA       <br />
-invariant to be maintained.  Note that there is no need for leaves to hold 
-their level because it is always 0.</p>
+          <td class="xmldoc"><p>Il datatype 'dltree' è un datatype di albero di ricerca binario, dove ad 
+ogni nodo sono mantenuti un indice e un elemento, e le foglie non hanno 
+alcuna informazione. Il confronto tra indici è fatto usando la relazione 
+di oridinamento totale polimorfica '(&lt;)'. Ogni nodo mantiene anche un 
+intero per il suo livello AA, per poter mantenere l'invariante AA. Si noti 
+che non c'è alcuna necessità che le foglie mantengano il proprio livello 
+perché esso è sempre 0.</p>
 
 
 </td>
@@ -87,16 +88,17 @@ their level because it is always 0.</p>
             decrease_level l&#39; tr
           </code>
           <div class="tip" id="144">
-            <strong>Signature:</strong> l&#39;:int -&gt; tr:dltree&lt;&#39;?8902,&#39;?8903&gt; -&gt; dltree&lt;&#39;?8902,&#39;?8903&gt;<br />
-                          <strong>Type parameters:</strong> '?8902, '?8903          </div>
+            <strong>Signature:</strong> l&#39;:int -&gt; tr:dltree&lt;&#39;?8899,&#39;?8900&gt; -&gt; dltree&lt;&#39;?8899,&#39;?8900&gt;<br />
+                          <strong>Type parameters:</strong> '?8899, '?8900          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L132-132" class="github-link">
+            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L135-135" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>Decreases the level of the root of a tree to a given lower level. If the given level is 
-equal or greater than the original level the tree remains unchanged.</p>
+          <p>Decresce il livello della radice di un albero a un dato livello più basso. 
+Se il livello dato è maggiore o uguale al livello originario l'alebro rimane 
+invariato.</p>
 
 
 
@@ -109,16 +111,16 @@ equal or greater than the original level the tree remains unchanged.</p>
             dltree_delete x0 tr
           </code>
           <div class="tip" id="145">
-            <strong>Signature:</strong> x0:&#39;?8914 -&gt; tr:dltree&lt;&#39;?8914,&#39;?8915&gt; -&gt; dltree&lt;&#39;?8914,&#39;?8915&gt;<br />
-                          <strong>Type parameters:</strong> '?8914, '?8915          </div>
+            <strong>Signature:</strong> x0:&#39;?8911 -&gt; tr:dltree&lt;&#39;?8911,&#39;?8912&gt; -&gt; dltree&lt;&#39;?8911,&#39;?8912&gt;<br />
+                          <strong>Type parameters:</strong> '?8911, '?8912          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L216-216" class="github-link">
+            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L219-219" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>This deletes the entry at the supplied index in a given lookup tree.    <br />
-Fails if the tree does not contain an entry for the supplied index.</p>
+          <p>Cancella l'entry all'indice fornito in un dato albero di ricerca. 
+Fallisce se l'albero non contiene alcuna entry per l'indice fornito.</p>
 
 
 
@@ -131,16 +133,17 @@ Fails if the tree does not contain an entry for the supplied index.</p>
             dltree_elem x0 tr
           </code>
           <div class="tip" id="146">
-            <strong>Signature:</strong> x0:&#39;?8917 -&gt; tr:dltree&lt;&#39;?8917,&#39;?8918&gt; -&gt; &#39;?8917 * &#39;?8918<br />
-                          <strong>Type parameters:</strong> '?8917, '?8918          </div>
+            <strong>Signature:</strong> x0:&#39;?8914 -&gt; tr:dltree&lt;&#39;?8914,&#39;?8915&gt; -&gt; &#39;?8914 * &#39;?8915<br />
+                          <strong>Type parameters:</strong> '?8914, '?8915          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L246-246" class="github-link">
+            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L250-250" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>This returns the index and item held at the supplied index in a given 
-lookup tree.  Fails if the tree has no entry for the supplied index.</p>
+          <p>Restituisce l'indice e l'elemento mantenuto all'indice fornito in 
+un dato albero di ricerca. Fallisce se l'albero non ha entry per 
+l'indice fornito.</p>
 
 
 
@@ -153,16 +156,16 @@ lookup tree.  Fails if the tree has no entry for the supplied index.</p>
             dltree_elems tr
           </code>
           <div class="tip" id="147">
-            <strong>Signature:</strong> tr:dltree&lt;&#39;?8890,&#39;?8891&gt; -&gt; (&#39;?8890 * &#39;?8891) list<br />
-                          <strong>Type parameters:</strong> '?8890, '?8891          </div>
+            <strong>Signature:</strong> tr:dltree&lt;&#39;?8887,&#39;?8888&gt; -&gt; (&#39;?8887 * &#39;?8888) list<br />
+                          <strong>Type parameters:</strong> '?8887, '?8888          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L98-98" class="github-link">
+            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L94-94" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>This converts the information held in a given lookup tree into an index-ordered
-association list.</p>
+          <p>Converte l'informazione mantenuta in un dato albero di ricerca 
+binario in una lista di associazione ordinata per indice.</p>
 
 
 
@@ -172,36 +175,40 @@ association list.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '148', 148)" onmouseover="showTip(event, '148', 148)">
-            dltree_elems0 tr xys0
+            dltree_empty 
           </code>
           <div class="tip" id="148">
-            <strong>Signature:</strong> tr:dltree&lt;&#39;?8887,&#39;?8888&gt; -&gt; xys0:(&#39;?8887 * &#39;?8888) list -&gt; (&#39;?8887 * &#39;?8888) list<br />
-                          <strong>Type parameters:</strong> '?8887, '?8888          </div>
+            <strong>Signature:</strong> dltree&lt;&#39;?8884,&#39;?8885&gt;<br />
+                          <strong>Type parameters:</strong> '?8884, '?8885          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L89-89" class="github-link">
+            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L88-88" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          
+          <p>Restituisce un nuovo dltree vuoto.</p>
+
+
+
         </td>
       </tr>
       <tr>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '149', 149)" onmouseover="showTip(event, '149', 149)">
-            dltree_empty 
+            dltree_insert (arg1, arg2) tr
           </code>
           <div class="tip" id="149">
-            <strong>Signature:</strong> dltree&lt;&#39;?8884,&#39;?8885&gt;<br />
-                          <strong>Type parameters:</strong> '?8884, '?8885          </div>
+            <strong>Signature:</strong> (&#39;?8908 * &#39;?8909) -&gt; tr:dltree&lt;&#39;?8908,&#39;?8909&gt; -&gt; dltree&lt;&#39;?8908,&#39;?8909&gt;<br />
+                          <strong>Type parameters:</strong> '?8908, '?8909          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L87-87" class="github-link">
+            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L192-192" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>Returns a fresh empty dltree.</p>
+          <p>Inserisce in un dato albero di ricerca un singolo elemento indicizzato.
+Fallisce se l'albero contiene già un entry per l'indicie fornito.</p>
 
 
 
@@ -211,19 +218,19 @@ association list.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '150', 150)" onmouseover="showTip(event, '150', 150)">
-            dltree_insert (arg1, arg2) tr
+            dltree_lookup x0 tr
           </code>
           <div class="tip" id="150">
-            <strong>Signature:</strong> (&#39;?8911 * &#39;?8912) -&gt; tr:dltree&lt;&#39;?8911,&#39;?8912&gt; -&gt; dltree&lt;&#39;?8911,&#39;?8912&gt;<br />
-                          <strong>Type parameters:</strong> '?8911, '?8912          </div>
+            <strong>Signature:</strong> x0:&#39;?8917 -&gt; tr:dltree&lt;&#39;?8917,&#39;?8918&gt; -&gt; &#39;?8918<br />
+                          <strong>Type parameters:</strong> '?8917, '?8918          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L188-188" class="github-link">
+            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L262-262" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>This inserts the supplied single indexed item into a given lookup tree. <br />
-Fails if the tree already contains an entry for the supplied index.</p>
+          <p>Restituisce l'elemento mantenuto all'indice fornito in un dato albero 
+di ricerca.</p>
 
 
 
@@ -233,18 +240,18 @@ Fails if the tree already contains an entry for the supplied index.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '151', 151)" onmouseover="showTip(event, '151', 151)">
-            dltree_lookup x0 tr
+            dltree_mem x0 tr
           </code>
           <div class="tip" id="151">
-            <strong>Signature:</strong> x0:&#39;?8920 -&gt; tr:dltree&lt;&#39;?8920,&#39;?8921&gt; -&gt; &#39;?8921<br />
+            <strong>Signature:</strong> x0:&#39;?8920 -&gt; tr:dltree&lt;&#39;?8920,&#39;?8921&gt; -&gt; bool<br />
                           <strong>Type parameters:</strong> '?8920, '?8921          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L257-257" class="github-link">
+            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L269-269" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>This returns the item held at the supplied index in a given lookup tree.</p>
+          <p>Restituisce "true" sse l'indice fornito occorre in un dato albero di ricerca.</p>
 
 
 
@@ -254,18 +261,18 @@ Fails if the tree already contains an entry for the supplied index.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '152', 152)" onmouseover="showTip(event, '152', 152)">
-            dltree_mem x0 tr
+            level tr
           </code>
           <div class="tip" id="152">
-            <strong>Signature:</strong> x0:&#39;?8923 -&gt; tr:dltree&lt;&#39;?8923,&#39;?8924&gt; -&gt; bool<br />
-                          <strong>Type parameters:</strong> '?8923, '?8924          </div>
+            <strong>Signature:</strong> tr:dltree&lt;&#39;?8890,&#39;?8891&gt; -&gt; int<br />
+                          <strong>Type parameters:</strong> '?8890, '?8891          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L264-264" class="github-link">
+            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L107-107" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>This returns "true" iff the supplied index occurs in a given lookup tree.</p>
+          <p>Restituisce il livello dell'albero.</p>
 
 
 
@@ -275,18 +282,18 @@ Fails if the tree already contains an entry for the supplied index.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '153', 153)" onmouseover="showTip(event, '153', 153)">
-            level tr
+            right_app f tr
           </code>
           <div class="tip" id="153">
-            <strong>Signature:</strong> tr:dltree&lt;&#39;?8893,&#39;?8894&gt; -&gt; int<br />
-                          <strong>Type parameters:</strong> '?8893, '?8894          </div>
+            <strong>Signature:</strong> f:(dltree&lt;&#39;?8896,&#39;?8897&gt; -&gt; dltree&lt;&#39;?8896,&#39;?8897&gt;) -&gt; tr:dltree&lt;&#39;?8896,&#39;?8897&gt; -&gt; dltree&lt;&#39;?8896,&#39;?8897&gt;<br />
+                          <strong>Type parameters:</strong> '?8896, '?8897          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L105-105" class="github-link">
+            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L125-125" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>Returns the level of the tree.</p>
+          <p>Applica una funzione al primo nodo più a destra di un albero.</p>
 
 
 
@@ -296,18 +303,20 @@ Fails if the tree already contains an entry for the supplied index.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '154', 154)" onmouseover="showTip(event, '154', 154)">
-            right_app f tr
+            rightmost_elem (arg1, arg2) tr
           </code>
           <div class="tip" id="154">
-            <strong>Signature:</strong> f:(dltree&lt;&#39;?8899,&#39;?8900&gt; -&gt; dltree&lt;&#39;?8899,&#39;?8900&gt;) -&gt; tr:dltree&lt;&#39;?8899,&#39;?8900&gt; -&gt; dltree&lt;&#39;?8899,&#39;?8900&gt;<br />
-                          <strong>Type parameters:</strong> '?8899, '?8900          </div>
+            <strong>Signature:</strong> (&#39;?8893 * &#39;?8894) -&gt; tr:dltree&lt;&#39;?8893,&#39;?8894&gt; -&gt; &#39;?8893 * &#39;?8894<br />
+                          <strong>Type parameters:</strong> '?8893, '?8894          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L122-122" class="github-link">
+            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L117-117" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>Applies a function to the rightmost node of a tree.</p>
+          <p>Restituisce come una coppia il nodo più a destra nell'albero. 
+Se l'albero è solo una Leaf, allora non ha nodi e in questo 
+caso la funzione restituisce solo la coppia in input.</p>
 
 
 
@@ -317,19 +326,35 @@ Fails if the tree already contains an entry for the supplied index.</p>
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '155', 155)" onmouseover="showTip(event, '155', 155)">
-            rightmost_elem (arg1, arg2) tr
+            skew tr
           </code>
           <div class="tip" id="155">
-            <strong>Signature:</strong> (&#39;?8896 * &#39;?8897) -&gt; tr:dltree&lt;&#39;?8896,&#39;?8897&gt; -&gt; &#39;?8896 * &#39;?8897<br />
-                          <strong>Type parameters:</strong> '?8896, '?8897          </div>
+            <strong>Signature:</strong> tr:dltree&lt;&#39;?8902,&#39;?8903&gt; -&gt; dltree&lt;&#39;?8902,&#39;?8903&gt;<br />
+                          <strong>Type parameters:</strong> '?8902, '?8903          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L114-114" class="github-link">
+            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L153-153" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>Returns the rightmost node in the tree as a pair. If the tree is just a Leaf, 
-than it has no nodes and in this case the function returns just the pair in input.</p>
+          <p>L'operazione skew esegue una singola rotazione a destra per 
+ribilanciare quando il figlio sinistro ha lo stesso livello 
+del suo padre.</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">     <span class="i">D</span>[<span class="i">n</span>]                     <span class="i">B</span>[<span class="i">n</span>]                                  
+    <span class="o">/</span>    
+  <span class="i">B</span>[<span class="i">n</span>]  <span class="i">E</span>[<span class="o">..</span>]     <span class="o">--&gt;</span>     <span class="i">A</span>[<span class="o">..</span>]  <span class="i">D</span>[<span class="i">n</span>]                               
+ <span class="o">/</span>   
+</code></pre></td>
+</tr>
+</table>
+
+<p>A[..]  C[..]                    C[..]  E[..]</p>
 
 
 
@@ -339,42 +364,34 @@ than it has no nodes and in this case the function returns just the pair in inpu
         <td class="member-name">
 
           <code onmouseout="hideTip(event, '156', 156)" onmouseover="showTip(event, '156', 156)">
-            skew tr
+            split tr
           </code>
           <div class="tip" id="156">
             <strong>Signature:</strong> tr:dltree&lt;&#39;?8905,&#39;?8906&gt; -&gt; dltree&lt;&#39;?8905,&#39;?8906&gt;<br />
                           <strong>Type parameters:</strong> '?8905, '?8906          </div>
         </td>
         <td class="xmldoc">
-            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L150-150" class="github-link">
+            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L176-176" class="github-link">
               <img src="../content/img/github.png" class="normal" />
               <img src="../content/img/github-blue.png" class="hover" />
             </a>
-          <p>The skew operation performs a single right rotation to rebalance when the
-left child has the same level as its parent.</p>
+          <p>L'operazione di split esegue una singola rotazione a sinistra per ribilanciare 
+quando il nipote destro-destro (E nell'esempio) ha lo stesso livello del suo 
+nonno (B nell'esempio), incrementando il livello del nodo radice risultante 
+(D nell'esempio).</p>
 
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">   <span class="i">B</span>[<span class="i">n</span>]                      <span class="i">D</span>[<span class="i">n</span><span class="o">+</span><span class="n">1</span>]    
+  <span class="o">/</span>    
+</code></pre></td>
+</tr>
+</table>
 
-
-        </td>
-      </tr>
-      <tr>
-        <td class="member-name">
-
-          <code onmouseout="hideTip(event, '157', 157)" onmouseover="showTip(event, '157', 157)">
-            split tr
-          </code>
-          <div class="tip" id="157">
-            <strong>Signature:</strong> tr:dltree&lt;&#39;?8908,&#39;?8909&gt; -&gt; dltree&lt;&#39;?8908,&#39;?8909&gt;<br />
-                          <strong>Type parameters:</strong> '?8908, '?8909          </div>
-        </td>
-        <td class="xmldoc">
-            <a href="http://github.com/domasin/NHolZ/tree/master/src/NHolZ/DLTree.fs#L173-173" class="github-link">
-              <img src="../content/img/github.png" class="normal" />
-              <img src="../content/img/github-blue.png" class="hover" />
-            </a>
-          <p>The split operation performs a single left rotation to rebalance when the 
-right-right grandchild has the same level as its grandparent, incrementing
-the level of the resulting top-level node.</p>
+<p>A[..]  D[n]      --&gt;        B[n]  E[n]<br />
+          /  \                /   \      <br />
+      C[..]  E[n]          A[..]  C[..]</p>
 
 
 
