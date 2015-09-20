@@ -4,16 +4,15 @@
 #I "../../bin/NHolZ"
 
 (**
-Introducing your project
+Per lanciare il programma e la sua inizializzazione
 ========================
 
-Say more
 
 *)
 #r "NHolZ.dll"
+#load "initialization.fsx"
 open NHolZ
 
-Library.hello 0
 (**
-Some more info
+Non c'e' ancora un tutorial. Per ora sto scrivendo degli [appunti](index.html) sul sistema.
 *)

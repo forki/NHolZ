@@ -130,7 +130,7 @@ let right_app f tr =
 //  decrease_level: int -> dltree<'a,'b> -> dltree<'a,'b>
 //
 /// Decresce il livello della radice di un albero a un dato livello più basso. 
-/// Se il livello dato è maggiore o uguale al livello originario l'alebro rimane 
+/// Se il livello dato è maggiore o uguale al livello originario l'albero rimane 
 /// invariato.
 let decrease_level l' tr =
     match tr with
