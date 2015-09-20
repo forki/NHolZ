@@ -38,6 +38,7 @@
 <ol>
 <li>Introduzione agli Alberi AA</li>
 <li>Il datatype dltree</li>
+<li>Operazioni base sui sotto alberi</li>
 </ol>
 
 <h2><a name="Introduzione-agli-Alberi-AA" class="anchor" href="#Introduzione-agli-Alberi-AA">Introduzione agli Alberi AA</a></h2>
@@ -94,8 +95,10 @@ tutte un corretto ordinamento.</p>
 
 <h2><a name="Il-datatype-dltree" class="anchor" href="#Il-datatype-dltree">Il datatype dltree</a></h2>
 
-<p>Il datatype <code>dltree</code> e' un datatype di albero di ricerca binario, dove ad 
-ogni nodo sono mantenuti un indice e un elemento, e le foglie non hanno 
+<p>Il datatype <code>dltree</code> e' la nostra specifica implementazione degli alberi AA per il 
+nostro sistema: un datatype di albero di ricerca binario, dove ad 
+ogni nodo sono mantenuti un indice e un elemento (una coppia in questo caso per l'uso 
+specifico che sara' fatto di questra struttura nel sistema), e le foglie non hanno 
 alcuna informazione. Il confronto tra indici e' fatto usando la relazione 
 di oridinamento totale polimorfica '(&lt;)'. Ogni nodo mantiene anche un 
 intero per il suo livello AA, per poter mantenere l'invariante AA. Si noti 
@@ -219,7 +222,7 @@ piu' avanti:</p>
 <strong>Nota</strong>: negli esempi, quando viene data l'implementazione delle funzioni e dei datatype, 
 come nei blocchi di codice piu' sopra, ai nomi delle funzioni sono aggiunti degli apici per 
 distinguerle dalle implentazioni del programma. Quando si danno, invece,  gli esempi del 
-funzionamento delle funzioni, come nel blocco precedente, sono invece usate dirattamente le 
+funzionamento delle funzioni, come nel blocco precedente, sono usate dirattamente le 
 funzioni del programma (senza apici). )</p>
 
 <p>Si noti la struttura dell'albero creato e l'ordine degli elementi estratti:</p>
@@ -261,6 +264,238 @@ funzioni del programma (senza apici). )</p>
 </tr>
 </table>
 
+<h2><a name="Operazioni-base-sui-sotto-alberi" class="anchor" href="#Operazioni-base-sui-sotto-alberi">Operazioni base sui sotto alberi</a></h2>
+
+<p>Questa sezione del modulo implementa le funzioni base di gestione dell'albero tra cui 
+l'inserimento, la cancellazione, le operazioni di <code>skew</code> e <code>split</code> per rigenerare gli 
+indici e la struttura dell'albero in modo da garantire l'invariante AA in seguito agli 
+inserimenti e cancellazione effettuati, e l'operazione di ricerca all'interno 
+dell'albero.</p>
+
+<p>Sono innanzitutto definite alcune funzioni di supproto.</p>
+
+<p>La funzione <code>level</code> restituisce il livello dell'albero:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs26', 60)" onmouseover="showTip(event, 'fs26', 60)" class="f">level&#39;</span> <span onmouseout="hideTip(event, 'fs9', 61)" onmouseover="showTip(event, 'fs9', 61)" class="i">tr</span> <span class="o">=</span>
+    <span class="k">match</span> <span onmouseout="hideTip(event, 'fs9', 62)" onmouseover="showTip(event, 'fs9', 62)" class="i">tr</span> <span class="k">with</span>
+    | <span onmouseout="hideTip(event, 'fs3', 63)" onmouseover="showTip(event, 'fs3', 63)" class="p">Node&#39;</span> (<span onmouseout="hideTip(event, 'fs27', 64)" onmouseover="showTip(event, 'fs27', 64)" class="i">l</span>,_,_,_) <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs27', 65)" onmouseover="showTip(event, 'fs27', 65)" class="i">l</span>
+    | <span onmouseout="hideTip(event, 'fs5', 66)" onmouseover="showTip(event, 'fs5', 66)" class="p">Leaf&#39;</span>           <span class="k">-&gt;</span> <span class="n">0</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Ad esempio il livello dell'abero che abbiamo appena costruito di sopra <code>tr5</code> e' 2:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs28', 67)" onmouseover="showTip(event, 'fs28', 67)" class="f">level</span> <span onmouseout="hideTip(event, 'fs23', 68)" onmouseover="showTip(event, 'fs23', 68)" class="i">tr5</span>;;
+<span class="c">// - val it : int = 2</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>La funzione <code>rightmost_elem</code> restituisce l'informazione mantenuta nel nodo piu' 
+a destra dell'albero ed e' usata per applicare le operazioni di trasformazione <code>skew</code> e 
+<code>split</code> in seguito a una cancellazione <code>dltree_delete</code> descritta piu' sotto. Oltre all'albero 
+e' passata in input un argomento nel caso in cui l'albero contenga solo una foglia:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Restituisce come una coppia il nodo piu&#39; a destra nell&#39;albero. </span>
+<span class="c">/// Se l&#39;albero e&#39; solo una Leaf, allora non ha nodi e in questo </span>
+<span class="c">/// caso la funzione restituisce solo la coppia in input.</span>
+<span class="k">let</span> <span class="k">rec</span> <span onmouseout="hideTip(event, 'fs29', 69)" onmouseover="showTip(event, 'fs29', 69)" class="f">rightmost_elem&#39;</span> <span onmouseout="hideTip(event, 'fs30', 70)" onmouseover="showTip(event, 'fs30', 70)" class="i">xy0</span> <span onmouseout="hideTip(event, 'fs31', 71)" onmouseover="showTip(event, 'fs31', 71)" class="i">tr</span> <span class="o">=</span>
+    <span class="k">match</span> <span onmouseout="hideTip(event, 'fs31', 72)" onmouseover="showTip(event, 'fs31', 72)" class="i">tr</span> <span class="k">with</span>
+    | <span onmouseout="hideTip(event, 'fs25', 73)" onmouseover="showTip(event, 'fs25', 73)" class="p">Node</span> (_,<span onmouseout="hideTip(event, 'fs32', 74)" onmouseover="showTip(event, 'fs32', 74)" class="i">xy</span>,_,<span onmouseout="hideTip(event, 'fs33', 75)" onmouseover="showTip(event, 'fs33', 75)" class="i">tr2</span>) <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs29', 76)" onmouseover="showTip(event, 'fs29', 76)" class="f">rightmost_elem&#39;</span> <span onmouseout="hideTip(event, 'fs32', 77)" onmouseover="showTip(event, 'fs32', 77)" class="i">xy</span> <span onmouseout="hideTip(event, 'fs33', 78)" onmouseover="showTip(event, 'fs33', 78)" class="i">tr2</span>
+    | <span onmouseout="hideTip(event, 'fs7', 79)" onmouseover="showTip(event, 'fs7', 79)" class="p">Leaf</span>              <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs30', 80)" onmouseover="showTip(event, 'fs30', 80)" class="i">xy0</span>
+
+<span onmouseout="hideTip(event, 'fs34', 81)" onmouseover="showTip(event, 'fs34', 81)" class="f">rightmost_elem</span> (<span class="s">&quot;&quot;</span>,<span class="s">&quot;&quot;</span>) <span onmouseout="hideTip(event, 'fs23', 82)" onmouseover="showTip(event, 'fs23', 82)" class="i">tr5</span>;;
+<span class="c">// - val it : string * string = (&quot;w&quot;, &quot;z&quot;)</span>
+
+<span onmouseout="hideTip(event, 'fs34', 83)" onmouseover="showTip(event, 'fs34', 83)" class="f">rightmost_elem</span> (<span class="s">&quot;&quot;</span>,<span class="s">&quot;&quot;</span>) <span onmouseout="hideTip(event, 'fs17', 84)" onmouseover="showTip(event, 'fs17', 84)" class="i">dltree_empty</span>;;
+<span class="c">// - val it : string * string = (&quot;&quot;, &quot;&quot;)</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>La funzione <code>right_app</code> applica una funzione al primo nodo piu' a destra di 
+un albero ed e' usata per applicare le operazioni di trasformazione <code>skew</code> e 
+<code>split</code> in seguito a una cancellazione <code>dltree_delete</code> descritta piu' sotto:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs35', 85)" onmouseover="showTip(event, 'fs35', 85)" class="f">right_app&#39;</span> <span onmouseout="hideTip(event, 'fs36', 86)" onmouseover="showTip(event, 'fs36', 86)" class="f">f</span> <span onmouseout="hideTip(event, 'fs31', 87)" onmouseover="showTip(event, 'fs31', 87)" class="i">tr</span> <span class="o">=</span>
+    <span class="k">match</span> <span onmouseout="hideTip(event, 'fs31', 88)" onmouseover="showTip(event, 'fs31', 88)" class="i">tr</span> <span class="k">with</span>
+    | <span onmouseout="hideTip(event, 'fs25', 89)" onmouseover="showTip(event, 'fs25', 89)" class="p">Node</span> (<span onmouseout="hideTip(event, 'fs27', 90)" onmouseover="showTip(event, 'fs27', 90)" class="i">l</span>,<span onmouseout="hideTip(event, 'fs32', 91)" onmouseover="showTip(event, 'fs32', 91)" class="i">xy</span>,<span onmouseout="hideTip(event, 'fs37', 92)" onmouseover="showTip(event, 'fs37', 92)" class="i">tr1</span>,<span onmouseout="hideTip(event, 'fs33', 93)" onmouseover="showTip(event, 'fs33', 93)" class="i">tr2</span>)   <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs25', 94)" onmouseover="showTip(event, 'fs25', 94)" class="p">Node</span> (<span onmouseout="hideTip(event, 'fs27', 95)" onmouseover="showTip(event, 'fs27', 95)" class="i">l</span>, <span onmouseout="hideTip(event, 'fs32', 96)" onmouseover="showTip(event, 'fs32', 96)" class="i">xy</span>, <span onmouseout="hideTip(event, 'fs37', 97)" onmouseover="showTip(event, 'fs37', 97)" class="i">tr1</span>, <span onmouseout="hideTip(event, 'fs36', 98)" onmouseover="showTip(event, 'fs36', 98)" class="f">f</span> <span onmouseout="hideTip(event, 'fs33', 99)" onmouseover="showTip(event, 'fs33', 99)" class="i">tr2</span>)
+    | _                     <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs31', 100)" onmouseover="showTip(event, 'fs31', 100)" class="i">tr</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>La funzione <code>decrease_level</code> decresce il livello della radice di un albero a 
+un dato livello piu' basso. Se il livello dato e' maggiore o uguale al livello 
+originario l'albero rimane invariato:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs38', 101)" onmouseover="showTip(event, 'fs38', 101)" class="f">decrease_level&#39;</span> <span onmouseout="hideTip(event, 'fs39', 102)" onmouseover="showTip(event, 'fs39', 102)" class="i">l&#39;</span> <span onmouseout="hideTip(event, 'fs31', 103)" onmouseover="showTip(event, 'fs31', 103)" class="i">tr</span> <span class="o">=</span>
+    <span class="k">match</span> <span onmouseout="hideTip(event, 'fs31', 104)" onmouseover="showTip(event, 'fs31', 104)" class="i">tr</span> <span class="k">with</span>
+    | <span onmouseout="hideTip(event, 'fs25', 105)" onmouseover="showTip(event, 'fs25', 105)" class="p">Node</span> (<span onmouseout="hideTip(event, 'fs27', 106)" onmouseover="showTip(event, 'fs27', 106)" class="i">l</span>,<span onmouseout="hideTip(event, 'fs32', 107)" onmouseover="showTip(event, 'fs32', 107)" class="i">xy</span>,<span onmouseout="hideTip(event, 'fs37', 108)" onmouseover="showTip(event, 'fs37', 108)" class="i">tr1</span>,<span onmouseout="hideTip(event, 'fs33', 109)" onmouseover="showTip(event, 'fs33', 109)" class="i">tr2</span>) <span class="k">when</span> (<span onmouseout="hideTip(event, 'fs27', 110)" onmouseover="showTip(event, 'fs27', 110)" class="i">l</span> <span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs39', 111)" onmouseover="showTip(event, 'fs39', 111)" class="i">l&#39;</span>) <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs25', 112)" onmouseover="showTip(event, 'fs25', 112)" class="p">Node</span> (<span onmouseout="hideTip(event, 'fs39', 113)" onmouseover="showTip(event, 'fs39', 113)" class="i">l&#39;</span>,<span onmouseout="hideTip(event, 'fs32', 114)" onmouseover="showTip(event, 'fs32', 114)" class="i">xy</span>,<span onmouseout="hideTip(event, 'fs37', 115)" onmouseover="showTip(event, 'fs37', 115)" class="i">tr1</span>,<span onmouseout="hideTip(event, 'fs33', 116)" onmouseover="showTip(event, 'fs33', 116)" class="i">tr2</span>)
+    | _  <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs31', 117)" onmouseover="showTip(event, 'fs31', 117)" class="i">tr</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Anche questa funzione e' usata per applicare le operazioni di trasformazione 
+<code>skew</code> e <code>split</code> in seguito a una cancellazione <code>dltree_delete</code> descritta piu' 
+sotto e non ha senso usarla al di fuori di questo contesto:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs40', 118)" onmouseover="showTip(event, 'fs40', 118)" class="f">decrease_level</span> <span class="n">1</span> <span onmouseout="hideTip(event, 'fs23', 119)" onmouseover="showTip(event, 'fs23', 119)" class="i">tr5</span>;;
+<span class="c">// val it : dltree&lt;string,string&gt; =</span>
+<span class="c">//   Node</span>
+<span class="c">//     (1,(&quot;c&quot;, &quot;d&quot;),Node (1,(&quot;a&quot;, &quot;b&quot;),Leaf,Leaf),</span>
+<span class="c">//      Node</span>
+<span class="c">//        (2,(&quot;o&quot;, &quot;e&quot;),Node (1,(&quot;e&quot;, &quot;e&quot;),Leaf,Leaf),</span>
+<span class="c">//         Node (1,(&quot;w&quot;, &quot;z&quot;),Leaf,Leaf)))</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Si noti infatti che la radice ha indice 1 e l'albero non soddifa piu' l'invariante AA.</p>
+
+<p>Vediamo ora le operazioni di trasformazione.</p>
+
+<p>L'operazione di <code>skew</code> esegue una singola rotazione a destra ed e' usata per 
+ribilanciare l'albero quando il ramo sinistro ha lo stesso livello del padre:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs41', 120)" onmouseover="showTip(event, 'fs41', 120)" class="f">skew&#39;</span> <span onmouseout="hideTip(event, 'fs31', 121)" onmouseover="showTip(event, 'fs31', 121)" class="i">tr</span> <span class="o">=</span>
+    <span class="k">match</span> <span onmouseout="hideTip(event, 'fs31', 122)" onmouseover="showTip(event, 'fs31', 122)" class="i">tr</span> <span class="k">with</span>
+    <span onmouseout="hideTip(event, 'fs25', 123)" onmouseover="showTip(event, 'fs25', 123)" class="p">Node</span> (<span onmouseout="hideTip(event, 'fs27', 124)" onmouseover="showTip(event, 'fs27', 124)" class="i">l</span>, <span onmouseout="hideTip(event, 'fs32', 125)" onmouseover="showTip(event, 'fs32', 125)" class="i">xy</span>, <span onmouseout="hideTip(event, 'fs25', 126)" onmouseover="showTip(event, 'fs25', 126)" class="p">Node</span> (<span onmouseout="hideTip(event, 'fs42', 127)" onmouseover="showTip(event, 'fs42', 127)" class="i">l1</span>,<span onmouseout="hideTip(event, 'fs43', 128)" onmouseover="showTip(event, 'fs43', 128)" class="i">xy1</span>,<span onmouseout="hideTip(event, 'fs44', 129)" onmouseover="showTip(event, 'fs44', 129)" class="i">tr11</span>,<span onmouseout="hideTip(event, 'fs45', 130)" onmouseover="showTip(event, 'fs45', 130)" class="i">tr12</span>), <span onmouseout="hideTip(event, 'fs33', 131)" onmouseover="showTip(event, 'fs33', 131)" class="i">tr2</span>)
+        <span class="k">-&gt;</span> <span class="k">if</span> (<span onmouseout="hideTip(event, 'fs42', 132)" onmouseover="showTip(event, 'fs42', 132)" class="i">l1</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs27', 133)" onmouseover="showTip(event, 'fs27', 133)" class="i">l</span>)
+            <span class="k">then</span> <span onmouseout="hideTip(event, 'fs25', 134)" onmouseover="showTip(event, 'fs25', 134)" class="p">Node</span> (<span onmouseout="hideTip(event, 'fs42', 135)" onmouseover="showTip(event, 'fs42', 135)" class="i">l1</span>, <span onmouseout="hideTip(event, 'fs43', 136)" onmouseover="showTip(event, 'fs43', 136)" class="i">xy1</span>, <span onmouseout="hideTip(event, 'fs44', 137)" onmouseover="showTip(event, 'fs44', 137)" class="i">tr11</span>, <span onmouseout="hideTip(event, 'fs25', 138)" onmouseover="showTip(event, 'fs25', 138)" class="p">Node</span> (<span onmouseout="hideTip(event, 'fs27', 139)" onmouseover="showTip(event, 'fs27', 139)" class="i">l</span>,<span onmouseout="hideTip(event, 'fs32', 140)" onmouseover="showTip(event, 'fs32', 140)" class="i">xy</span>,<span onmouseout="hideTip(event, 'fs45', 141)" onmouseover="showTip(event, 'fs45', 141)" class="i">tr12</span>,<span onmouseout="hideTip(event, 'fs33', 142)" onmouseover="showTip(event, 'fs33', 142)" class="i">tr2</span>))
+            <span class="k">else</span> <span onmouseout="hideTip(event, 'fs31', 143)" onmouseover="showTip(event, 'fs31', 143)" class="i">tr</span>
+    | _  <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs31', 144)" onmouseover="showTip(event, 'fs31', 144)" class="i">tr</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Per vederne un esempio creiamo esplicitamente un albero che non soddisfa 
+l'invariante AA in quanto il ramo sinistro ha lo stesso livello della 
+radice e violando quindi il punto 2. della definizione di invariante AA 
+data sopra:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+<span class="l">21: </span>
+<span class="l">22: </span>
+<span class="l">23: </span>
+<span class="l">24: </span>
+<span class="l">25: </span>
+<span class="l">26: </span>
+<span class="l">27: </span>
+<span class="l">28: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs46', 145)" onmouseover="showTip(event, 'fs46', 145)" class="i">tr6</span> <span class="o">=</span> 
+    <span onmouseout="hideTip(event, 'fs25', 146)" onmouseover="showTip(event, 'fs25', 146)" class="p">Node</span>
+        (<span class="n">2</span>,(<span class="s">&quot;D&quot;</span>,<span class="n">0</span>),
+            <span onmouseout="hideTip(event, 'fs25', 147)" onmouseover="showTip(event, 'fs25', 147)" class="p">Node</span> 
+                (<span class="n">2</span>,(<span class="s">&quot;B&quot;</span>,<span class="n">0</span>),
+                    <span onmouseout="hideTip(event, 'fs25', 148)" onmouseover="showTip(event, 'fs25', 148)" class="p">Node</span> (<span class="n">1</span>,(<span class="s">&quot;A&quot;</span>,<span class="n">0</span>),<span onmouseout="hideTip(event, 'fs7', 149)" onmouseover="showTip(event, 'fs7', 149)" class="p">Leaf</span>,<span onmouseout="hideTip(event, 'fs7', 150)" onmouseover="showTip(event, 'fs7', 150)" class="p">Leaf</span>),
+                    <span onmouseout="hideTip(event, 'fs25', 151)" onmouseover="showTip(event, 'fs25', 151)" class="p">Node</span> (<span class="n">1</span>,(<span class="s">&quot;C&quot;</span>,<span class="n">0</span>),<span onmouseout="hideTip(event, 'fs7', 152)" onmouseover="showTip(event, 'fs7', 152)" class="p">Leaf</span>,<span onmouseout="hideTip(event, 'fs7', 153)" onmouseover="showTip(event, 'fs7', 153)" class="p">Leaf</span>)
+                ),
+            <span onmouseout="hideTip(event, 'fs25', 154)" onmouseover="showTip(event, 'fs25', 154)" class="p">Node</span> (<span class="n">1</span>,(<span class="s">&quot;E&quot;</span>,<span class="n">0</span>),<span onmouseout="hideTip(event, 'fs7', 155)" onmouseover="showTip(event, 'fs7', 155)" class="p">Leaf</span>,<span onmouseout="hideTip(event, 'fs7', 156)" onmouseover="showTip(event, 'fs7', 156)" class="p">Leaf</span>)
+        )
+
+<span class="c">//          (&quot;D&quot;,0)[2]                            (&quot;B&quot;,0)[2]</span>
+<span class="c">//         /          \                             /       \</span>
+<span class="c">//       (&quot;B&quot;,0)[2]  (&quot;E&quot;,0)[..]     --&gt;    (&quot;A&quot;,0)[..]  (&quot;D&quot;,0)[2]</span>
+<span class="c">//      /         \                                        /   \</span>
+<span class="c">//   (&quot;A&quot;,0)[..]  (&quot;C&quot;,0)[..]                     (&quot;C&quot;,0)[..]  (&quot;E&quot;,0)[..]</span>
+<span class="c">//      </span>
+<span onmouseout="hideTip(event, 'fs47', 157)" onmouseover="showTip(event, 'fs47', 157)" class="f">skew</span> <span onmouseout="hideTip(event, 'fs46', 158)" onmouseover="showTip(event, 'fs46', 158)" class="i">tr6</span>;;
+<span class="c">// val it : dltree&lt;string,int&gt; =</span>
+<span class="c">//   Node</span>
+<span class="c">//     (2,(&quot;B&quot;, 0),</span>
+<span class="c">//         Node (1,(&quot;A&quot;, 0),Leaf,Leaf),</span>
+<span class="c">//         Node </span>
+<span class="c">//             (2,(&quot;D&quot;, 0),</span>
+<span class="c">//                 Node (1,(&quot;C&quot;, 0),Leaf,Leaf),</span>
+<span class="c">//                 Node (1,(&quot;E&quot;, 0),Leaf,Leaf)</span>
+<span class="c">//             )</span>
+<span class="c">//         )</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>L'operazione ha creato un nuovo albero che contiene l'informazione originaria 
+ma che in piu' ora soddisfa l'invariante AA. Si noti pero' che questo vale per 
+questo caso particolare. L'operazione di per se' non ristabilisce l'invariante 
+ma deve essere usata nelle situazioni opportune ed eventualmente in combinazione 
+con l'operazione di <code>split</code>.</p>
+
+<p>L'operazione di <code>split</code> esegue una singola rotazione a sinistra per ribilanciare 
+quando il nodo piu' a destra ha lo stesso livello del suo nonno (violando quindi 
+il punto 4. della definizione di invariante AA data sopra), e incrementa di uno 
+il livello del nodo radice risultante.</p>
+
 <div class="tip" id="fs1">namespace NHolZ</div>
 <div class="tip" id="fs2">type dltree&#39;&lt;&#39;a,&#39;b&gt; =<br />&#160;&#160;| Node&#39; of int * (&#39;a * &#39;b) * dltree&#39;&lt;&#39;a,&#39;b&gt; * dltree&#39;&lt;&#39;a,&#39;b&gt;<br />&#160;&#160;| Leaf&#39;<br /><br />Full name: Dltree.dltree&#39;&lt;_,_&gt;</div>
 <div class="tip" id="fs3">union case dltree&#39;.Node&#39;: int * (&#39;a * &#39;b) * dltree&#39;&lt;&#39;a,&#39;b&gt; * dltree&#39;&lt;&#39;a,&#39;b&gt; -&gt; dltree&#39;&lt;&#39;a,&#39;b&gt;</div>
@@ -286,6 +521,28 @@ funzioni del programma (senza apici). )</p>
 <div class="tip" id="fs23">val tr5 : dltree&lt;string,string&gt;<br /><br />Full name: Dltree.tr5</div>
 <div class="tip" id="fs24">val dltree_elems : tr:dltree&lt;&#39;a,&#39;b&gt; -&gt; (&#39;a * &#39;b) list<br /><br />Full name: NHolZ.DLTree.dltree_elems</div>
 <div class="tip" id="fs25">union case dltree.Node: int * (&#39;a * &#39;b) * dltree&lt;&#39;a,&#39;b&gt; * dltree&lt;&#39;a,&#39;b&gt; -&gt; dltree&lt;&#39;a,&#39;b&gt;</div>
+<div class="tip" id="fs26">val level&#39; : tr:dltree&#39;&lt;&#39;a,&#39;b&gt; -&gt; int<br /><br />Full name: Dltree.level&#39;</div>
+<div class="tip" id="fs27">val l : int</div>
+<div class="tip" id="fs28">Multiple items<br />val level : tr:dltree&lt;&#39;a,&#39;b&gt; -&gt; int<br /><br />Full name: NHolZ.DLTree.level<br /><br />--------------------<br />type level =<br />&#160;&#160;| Minimal<br />&#160;&#160;| Full<br /><br />Full name: NHolZ.Dmodes.level</div>
+<div class="tip" id="fs29">val rightmost_elem&#39; : &#39;a * &#39;b -&gt; tr:dltree&lt;&#39;a,&#39;b&gt; -&gt; &#39;a * &#39;b<br /><br />Full name: Dltree.rightmost_elem&#39;<br /><em><br /><br />&#160;Restituisce come una coppia il nodo piu&#39; a destra nell&#39;albero. <br />&#160;Se l&#39;albero e&#39; solo una Leaf, allora non ha nodi e in questo <br />&#160;caso la funzione restituisce solo la coppia in input.</em></div>
+<div class="tip" id="fs30">val xy0 : &#39;a * &#39;b</div>
+<div class="tip" id="fs31">val tr : dltree&lt;&#39;a,&#39;b&gt;</div>
+<div class="tip" id="fs32">val xy : &#39;a * &#39;b</div>
+<div class="tip" id="fs33">val tr2 : dltree&lt;&#39;a,&#39;b&gt;</div>
+<div class="tip" id="fs34">val rightmost_elem : &#39;a * &#39;b -&gt; tr:dltree&lt;&#39;a,&#39;b&gt; -&gt; &#39;a * &#39;b<br /><br />Full name: NHolZ.DLTree.rightmost_elem</div>
+<div class="tip" id="fs35">val right_app&#39; : f:(dltree&lt;&#39;a,&#39;b&gt; -&gt; dltree&lt;&#39;a,&#39;b&gt;) -&gt; tr:dltree&lt;&#39;a,&#39;b&gt; -&gt; dltree&lt;&#39;a,&#39;b&gt;<br /><br />Full name: Dltree.right_app&#39;</div>
+<div class="tip" id="fs36">val f : (dltree&lt;&#39;a,&#39;b&gt; -&gt; dltree&lt;&#39;a,&#39;b&gt;)</div>
+<div class="tip" id="fs37">val tr1 : dltree&lt;&#39;a,&#39;b&gt;</div>
+<div class="tip" id="fs38">val decrease_level&#39; : l&#39;:int -&gt; tr:dltree&lt;&#39;a,&#39;b&gt; -&gt; dltree&lt;&#39;a,&#39;b&gt;<br /><br />Full name: Dltree.decrease_level&#39;</div>
+<div class="tip" id="fs39">val l&#39; : int</div>
+<div class="tip" id="fs40">val decrease_level : l&#39;:int -&gt; tr:dltree&lt;&#39;a,&#39;b&gt; -&gt; dltree&lt;&#39;a,&#39;b&gt;<br /><br />Full name: NHolZ.DLTree.decrease_level</div>
+<div class="tip" id="fs41">val skew&#39; : tr:dltree&lt;&#39;a,&#39;b&gt; -&gt; dltree&lt;&#39;a,&#39;b&gt;<br /><br />Full name: Dltree.skew&#39;</div>
+<div class="tip" id="fs42">val l1 : int</div>
+<div class="tip" id="fs43">val xy1 : &#39;a * &#39;b</div>
+<div class="tip" id="fs44">val tr11 : dltree&lt;&#39;a,&#39;b&gt;</div>
+<div class="tip" id="fs45">val tr12 : dltree&lt;&#39;a,&#39;b&gt;</div>
+<div class="tip" id="fs46">val tr6 : dltree&lt;string,int&gt;<br /><br />Full name: Dltree.tr6</div>
+<div class="tip" id="fs47">val skew : tr:dltree&lt;&#39;a,&#39;b&gt; -&gt; dltree&lt;&#39;a,&#39;b&gt;<br /><br />Full name: NHolZ.DLTree.skew</div>
 
         </div>
         <div class="span3">
